@@ -1,0 +1,7 @@
+{
+  "name": "fet_access",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
