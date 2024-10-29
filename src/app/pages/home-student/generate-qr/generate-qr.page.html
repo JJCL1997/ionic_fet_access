@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Generar QR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="qr-container" *ngIf="qrCode">
+    <ion-card>
+      <ion-card-content>
+        <h2>Tu código QR:</h2>
+        <img [src]="qrCode" alt="Código QR" />
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-text *ngIf="!qrCode" color="medium" class="ion-text-center">
+    <h3>Cargando código QR...</h3>
+  </ion-text>
+</ion-content>

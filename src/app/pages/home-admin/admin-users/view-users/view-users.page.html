@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Selector de roles -->
+  <ion-segment [(ngModel)]="selectedRole" (ionChange)="filterUsersByRole()" aria-label="Selector de Roles">
+    <ion-segment-button value="all">
+      <ion-label>Todos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="student">
+      <ion-label>Estudiantes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="admin">
+      <ion-label>Administrativo</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="vigilant">
+      <ion-label>Vigilantes</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-searchbar placeholder="Buscar usuarios..." (ionInput)="filterUsers($event)" aria-label="Barra de búsqueda de usuarios"></ion-searchbar>
+
+  <ion-list *ngIf="filteredUsers.length > 0">
+    <ion-item *ngFor="let user of filteredUsers" lines="full">
+      <ion-label>
+        <h2>{{ user.nombres }} {{ user.apellidos }}</h2>
+        <p>Rol: {{ user.role }}</p>
+        <p>Código: {{ user.codigo }}</p>
+        <p>Teléfono: {{ user.telefono }}</p>
+        <p>Email: {{ user.email }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="editUser(user.id)" color="primary" shape="round" fill="solid">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="confirmDelete(user.id)" color="danger" shape="round" fill="solid">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="filteredUsers.length === 0" color="medium" class="ion-text-center">
+    <h3>No hay usuarios para mostrar</h3>
+  </ion-text>
+</ion-content>

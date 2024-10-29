@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Actualizar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form (ngSubmit)="updateUser()" class="form-container">
+    <ion-item lines="inset">
+      <ion-label position="floating">Nombres</ion-label>
+      <ion-input [(ngModel)]="user.nombres" name="nombres" required></ion-input>
+    </ion-item>
+    
+    <ion-item lines="inset">
+      <ion-label position="floating">Apellidos</ion-label>
+      <ion-input [(ngModel)]="user.apellidos" name="apellidos" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="inset">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="user.email" name="email" type="email" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="inset">
+      <ion-label position="floating">Código</ion-label>
+      <ion-input [(ngModel)]="user.codigo" name="codigo" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="inset">
+      <ion-label position="floating">Teléfono</ion-label>
+      <ion-input [(ngModel)]="user.telefono" name="telefono" type="tel"></ion-input>
+    </ion-item>
+
+    <div class="button-container">
+      <ion-button expand="block" type="submit" color="primary" [disabled]="!user.nombres || !user.apellidos || !user.email || !user.codigo">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Guardar Cambios
+      </ion-button>
+    </div>
+
+    <ion-text color="danger" *ngIf="!user.nombres || !user.apellidos || !user.email || !user.codigo" class="warning-text">
+      <p>Todos los campos son obligatorios.</p>
+    </ion-text>
+  </form>
+</ion-content>
