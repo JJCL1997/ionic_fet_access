@@ -1,21 +1,35 @@
-.welcome-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-  }
-  
-  ion-card {
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .profile-picture img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto;
-  }
-  
+    ion-content {
+      --background: #ffffff; /* Fondo oscuro */
+    }
+
+    .welcome-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    ion-card {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      color: #000000; /* Texto en blanco */
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    }
+
+    .profile-picture img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto;
+      border: 3px solid #ffffff; /* Borde verde alrededor de la imagen */
+    }
+
+    ion-button {
+      margin-top: 20px;
+      background-color: #99d89e; /* Verde del botón */
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra del botón */
+    }
