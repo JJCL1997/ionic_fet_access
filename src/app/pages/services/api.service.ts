@@ -31,7 +31,7 @@ export class ApiService {
   async getUsers() {
     const token = localStorage.getItem('authToken');
     if (!token) throw new Error('No se encontró un token de autenticación');
-  
+
     const response = await axios.get(`${this.baseUrl}/users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -73,7 +73,7 @@ export class ApiService {
       throw error;
     }
   }
-  
+
 
   async getQrCode(): Promise<string> {
     const token = localStorage.getItem('authToken');
@@ -92,4 +92,15 @@ export class ApiService {
       localStorage.removeItem('authToken');
     }
   }
+  async validateQrCode(token: string, email: string): Promise<any> {
+    const authToken = localStorage.getItem('authToken');
+    const response = await axios.post(
+      `${this.baseUrl}/validate-qr`, // Usa backticks aquí
+      { token, email },
+      { headers: { Authorization: `Bearer ${authToken}` } } // Usa backticks aquí también
+    );
+    return response.data;
+}
+
+
 }

@@ -45,25 +45,26 @@ const routes: Routes = [
 
   },
   {
-    path: 'scan-qr',
-    loadChildren: () => import('./pages/scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
-  },
-  {
     path: 'home-vigilant',
     loadChildren: () => import('./pages/home-vigilant/home-vigilant.module').then( m => m.HomeVigilantPageModule),
     canActivate: [AuthGuard], data: { role: 'vigilant'}
   },
   {
+    path: 'scan-qr',
+    loadChildren: () => import('./pages/scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
+  },
+
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  
+
   {
     path: '**',
-    redirectTo: 'login' 
+    redirectTo: 'login'
   },
-  
+
 ];
 
 @NgModule({

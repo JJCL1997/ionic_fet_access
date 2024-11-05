@@ -1,36 +1,41 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Logo -->
+  <ion-img src="assets/img/logo.png"></ion-img>
+
+  <!-- Formulario -->
   <form (ngSubmit)="login()">
     <!-- Campo de correo electrónico -->
-    <ion-item>
+    <ion-item class="custom-item">
       <ion-label position="floating">Correo Electrónico</ion-label>
-      <ion-input 
-        type="email" 
-        [(ngModel)]="email" 
-        name="email" 
+      <ion-input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
         required
         aria-label="Correo Electrónico"
       ></ion-input>
     </ion-item>
 
     <!-- Campo de contraseña -->
-    <ion-item>
+    <ion-item class="custom-item">
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input 
-        type="password" 
-        [(ngModel)]="password" 
-        name="password" 
+      <ion-input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
         required
         aria-label="Contraseña"
       ></ion-input>
     </ion-item>
 
     <!-- Botón de inicio de sesión -->
-    <ion-button expand="full" type="submit" color="primary">Iniciar Sesión</ion-button>
+    <ion-button expand="full" type="submit" color="success">Iniciar Sesión</ion-button>
+
   </form>
 </ion-content>
