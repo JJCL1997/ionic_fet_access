@@ -26,3 +26,9 @@ ion-button {
   box-shadow: 0px 4px 8px rgba(8, 8, 8, 0.4);
   margin-top: 20px;
 }
+
+ion-toolbar {
+  --min-height: 56px; /* Altura estándar para todos los encabezados */
+  --padding-start: 16px;
+  --padding-end: 16px;
+}

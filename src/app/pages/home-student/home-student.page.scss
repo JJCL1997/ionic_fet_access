@@ -33,3 +33,9 @@
       border-radius: 8px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra del botón */
     }
+
+    ion-toolbar {
+      --min-height: 56px; /* Altura estándar para todos los encabezados */
+      --padding-start: 16px;
+      --padding-end: 16px;
+    }

@@ -1,37 +1,52 @@
+ion-content {
+  --background: #ffffff;
+}
+
 .qr-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 20px;
-  }
-  
-  .qr-card {
-    text-align: center;
-    max-width: 300px;
-    margin: auto;
-  }
-  
-  .qr-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .qr-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-  }
-  
-  .qr-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  .button-container {
-    padding: 20px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.qr-card {
+  text-align: center;
+  max-width: 300px;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  color: #000000;
+}
+
+.qr-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  color: #000000;
+}
+
+.qr-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.qr-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+ion-button {
+  background-color: #99d89e; /* Verde del botón */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+ion-toolbar {
+  --min-height: 56px; /* Altura estándar para todos los encabezados */
+  --padding-start: 16px;
+  --padding-end: 16px;
+}

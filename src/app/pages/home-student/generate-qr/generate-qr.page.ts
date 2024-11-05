@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-generate-qr',
@@ -9,7 +10,7 @@ import { ApiService } from '../../services/api.service';
 export class GenerateQrPage implements OnInit {
   qrCode: string | null = null;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private navCtrl: NavController) {}
 
   async ngOnInit() {
     try {
@@ -25,5 +26,9 @@ export class GenerateQrPage implements OnInit {
     } catch (error) {
       console.error('Error al cargar el código QR:', error);
     }
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack('/home-student'); // Navega a la página de home-student
   }
 }
