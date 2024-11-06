@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Detalles del Visitante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="visitor">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ visitor.nombres }} {{ visitor.apellidos }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Identificación:</strong> {{ visitor.identificacion }}</p>
+      <p><strong>Teléfono:</strong> {{ visitor.telefono }}</p>
+      <p><strong>Motivo de Visita:</strong> {{ visitor.motivo_visita }}</p>
+      <p><strong>Tipo de Vehículo:</strong> {{ visitor.latest_access_log?.vehicle_type || 'No disponible' }}</p>
+      <p><strong>Placa del Vehículo:</strong> {{ visitor.latest_access_log?.vehicle_plate || 'No disponible' }}</p>
+      <p><strong>Fecha de Acceso:</strong> {{ visitor.latest_access_log?.access_time || 'No disponible' }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

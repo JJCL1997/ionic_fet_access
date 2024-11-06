@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/pages/services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 

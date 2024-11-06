@@ -64,3 +64,12 @@ ion-toolbar {
   --background: #0c9f0f;
   color: #000000;
 }
+.error-button {
+  background-color: #4a90e2; /* Color azul similar al botón */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+}

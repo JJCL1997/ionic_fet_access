@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Visitantes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scroll-y="true">
+  <!-- Agregar un ion-searchbar para buscar visitantes -->
+  <ion-searchbar placeholder="Buscar visitantes..." (ionInput)="filterVisitors($event)" aria-label="Barra de búsqueda de visitantes"></ion-searchbar>
+
+  <!-- Lista de visitantes -->
+  <ion-list *ngIf="filteredVisitors.length > 0">
+    <ion-item *ngFor="let visitor of filteredVisitors" lines="full" (click)="viewVisitorDetails(visitor.id)">
+      <ion-label>
+        <h2>{{ visitor.nombres }} {{ visitor.apellidos }}</h2>
+        <p>Identificación: {{ visitor.identificacion }}</p>
+        <p>Teléfono: {{ visitor.telefono }}</p>
+        <p>Motivo de Visita: {{ visitor.motivo_visita }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="confirmDelete(visitor.id); $event.stopPropagation()" color="danger" shape="round" fill="solid">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje cuando no hay visitantes -->
+  <ion-text *ngIf="filteredVisitors.length === 0" color="medium" class="ion-text-center">
+    <h3>No hay visitantes para mostrar</h3>
+  </ion-text>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { ApiService } from '../services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,5 +41,8 @@ export class HomeVigilantPage implements OnInit {
       });
       toast.present();
     }
+  }
+  goToQrVisitor(){
+    this.router.navigate(['/qr-visitor'])
   }
 }

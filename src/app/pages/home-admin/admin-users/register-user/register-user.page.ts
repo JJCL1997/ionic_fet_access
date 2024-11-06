@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService } from 'src/app/pages/services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
@@ -15,7 +15,7 @@ export class RegisterUserPage {
     email: '',
     codigo: '',
     telefono: '',
-    role: 'student',
+    role: 'student', // Role inicial para asignar automáticamente el id
     password: '',
     password_confirmation: '',
   };
@@ -49,8 +49,16 @@ export class RegisterUserPage {
 
   async registerUser() {
     try {
+      // Asignar el role_id según el valor de role
+      this.user.role_id = this.user.role === 'admin' ? 1 : (this.user.role === 'student' ? 2 : 3);
+      delete this.user.role; // Eliminamos el campo 'role' si el backend solo necesita 'role_id'
+
+      // Llamada al servicio para registrar el usuario
       await this.apiService.registerUser(this.user);
+      
       this.showToast('Usuario registrado exitosamente', 'success');
+
+      // Limpiar el formulario
       this.user = {
         nombres: '',
         apellidos: '',
@@ -61,12 +69,12 @@ export class RegisterUserPage {
         password: '',
         password_confirmation: '',
       };
+
       this.router.navigate(['/admin-users']);
     } catch (error) {
       this.showToast((error as Error).message);
     }
   }
-
 
   goBack() {
     this.router.navigate(['/admin-users']);

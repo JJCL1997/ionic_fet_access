@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { ApiService } from 'src/app/pages/services/api.service'; 
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -20,8 +20,17 @@ export class HomeAdminPage implements OnInit {
     this.router.navigate(['/admin-users']); 
   }
 
+  goToVisitorManagement() {
+    this.router.navigate(['/visitors']); 
+  }
+
+  goToAccessLogsManagement() {
+    this.router.navigate(['/access-logs']);
+  }
+  
+
   goBack() {
-    this.router.navigate(['/admin-users']);
+    this.router.navigate(['/access-logs']);
   }
 
   async logout() {

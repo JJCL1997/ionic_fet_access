@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Registros de Acceso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Buscar registros de acceso..." (ionInput)="filterAccessLogs($event)" aria-label="Barra de búsqueda de registros"></ion-searchbar>
+
+  <ion-list *ngIf="filteredAccessLogs.length > 0">
+    <ion-item *ngFor="let log of filteredAccessLogs" (click)="goToAccessLogDetails(log.log_id)">
+      <ion-label>
+          <h2>{{ log.user_name }}</h2>
+          <p><strong>Placa del Vehículo:</strong> {{ log.vehicle_plate || 'No disponible' }}</p>
+        <p><strong>Tipo de Vehículo:</strong> {{ log.vehicle_type || 'No disponible' }}</p>
+        <p><strong>Fecha de Acceso:</strong> {{ log.access_time || 'No disponible' }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="confirmDelete(log.log_id)" color="danger" shape="round" fill="solid">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+      
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="filteredAccessLogs.length === 0" color="medium" class="ion-text-center">
+    <h3>No hay registros de acceso para mostrar</h3>
+  </ion-text>
+</ion-content>

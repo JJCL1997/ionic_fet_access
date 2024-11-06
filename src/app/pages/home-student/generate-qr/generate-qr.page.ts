@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { NavController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
+import { NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-generate-qr',
@@ -9,26 +9,62 @@ import { NavController } from '@ionic/angular';
 })
 export class GenerateQrPage implements OnInit {
   qrCode: string | null = null;
+  vehicleType: string = '';
+  vehiclePlate: string = '';
+  isPlateDisabled: boolean = false;
 
-  constructor(private apiService: ApiService, private navCtrl: NavController) {}
+  constructor(
+    private apiService: ApiService,
+    private navCtrl: NavController,
+    private toastController: ToastController
+  ) {}
 
-  async ngOnInit() {
-    try {
-      await this.loadQrCode();
-    } catch (error) {
-      console.error('Error al obtener el código QR:', error);
+  ngOnInit() {}
+
+  onVehicleTypeChange() {
+    this.isPlateDisabled = this.vehicleType === 'no_registra';
+    if (this.isPlateDisabled) {
+      this.vehiclePlate = '';
     }
   }
 
   async loadQrCode() {
     try {
-      this.qrCode = await this.apiService.getQrCode();
-    } catch (error) {
+      const plate = this.isPlateDisabled ? '' : this.vehiclePlate;
+
+      if (!this.vehicleType) {
+        await this.showToast('Selecciona el tipo de vehículo', 'danger');
+        return;
+      }
+
+      // Verifica si el usuario seleccionó "carro" o "moto" pero no ingresó la placa
+      if ((this.vehicleType === 'carro' || this.vehicleType === 'Moto') && !this.vehiclePlate) {
+        await this.showToast('Debes ingresar la placa', 'danger');
+        return;
+      }
+
+      // Genera el código QR si pasa todas las validaciones
+      this.qrCode = await this.apiService.getQrCode(this.vehicleType, plate);
+    } catch (error: any) {
+      const errorMessage = error.error && error.error.message 
+        ? error.error.message 
+        : 'Error al cargar el código QR.';
+      await this.showToast(errorMessage, 'danger');
       console.error('Error al cargar el código QR:', error);
     }
   }
 
+  async showToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
   goBack() {
-    this.navCtrl.navigateBack('/home-student'); // Navega a la página de home-student
+    this.navCtrl.back();
   }
 }

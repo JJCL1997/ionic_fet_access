@@ -14,10 +14,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-button expand="block" routerLink="/scan-qr">Leer Código QR</ion-button>
-      
-    </ion-card-content>
-    <ion-card-content>
-      <ion-button expand="block"> Visitante </ion-button>
+      <ion-button expand="block" (click)="goToQrVisitor()">QR para generar visitante</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

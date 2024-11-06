@@ -1,16 +1,20 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-title>Estudiantes</ion-title>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="welcome-card">
-    <ion-card >
+    <ion-card>
       <ion-card-header>
         <div class="profile-picture">
-          <img src="assets/img/student.png" alt="Foto de perfil" />
+          <!-- Foto de perfil dinámica o imagen predeterminada si no está disponible -->
+          <img 
+            [src]="userProfile?.profile_photo || 'assets/img/student.png'" 
+            alt="Foto de perfil" 
+            class="profile-photo" 
+          />
         </div>
       </ion-card-header>
       <ion-card-content>
@@ -19,8 +23,12 @@
       </ion-card-content>
     </ion-card>
   </div>
+
+  <!-- Botones de acción -->
   <ion-content class="ion-padding">
-    <ion-button class="generate-qr" (click)="goToUserManagement()">Generar QR</ion-button>
+    <ion-button (click)="goToUserManagement()">Generar QR</ion-button>
+    <ion-button (click)="viewInfo()" color="primary">Información del Perfil</ion-button>
+    <ion-button (click)="viewOptions()" color="secondary">Acciones Disponibles</ion-button>
     <ion-button (click)="logout()" color="danger">Cerrar Sesión</ion-button>
   </ion-content>
 </ion-content>

@@ -11,15 +11,19 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = localStorage.getItem('authToken');
     const userRole = localStorage.getItem('userRole');
-    const requiredRole = route.data['role']; // Obtiene el rol requerido de los datos de la ruta
-
-    // Verifica si el usuario tiene el rol requerido
+    const requiredRole = route.data['role'];
+  
+    console.log('Token:', token);
+    console.log('User Role:', userRole);
+    console.log('Required Role:', requiredRole);
+  
     if (token && userRole === requiredRole) {
-      return true; // Permite el acceso si el rol coincide
+      return true;
     }
-
-    // Redirige al login si no cumple con los requisitos
+  
     this.router.navigate(['/login']);
     return false;
   }
+  
+  
 }

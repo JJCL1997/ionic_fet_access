@@ -4,9 +4,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Mostrar mensaje de error si existe -->
+
+
+  <!-- Selección de tipo de vehículo -->
+  <ion-item>
+    <ion-label position="floating">Tipo de Vehículo</ion-label>
+    <ion-select [(ngModel)]="vehicleType" (ionChange)="onVehicleTypeChange()">
+      <ion-select-option value="carro">Carro</ion-select-option>
+      <ion-select-option value="Moto">Moto</ion-select-option>
+      <ion-select-option value="no_registra">No registra</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Campo de entrada para la placa del vehículo, desactivado si el tipo es "No registra" -->
+  <ion-item>
+    <ion-label position="floating">Placa del Vehículo</ion-label>
+    <ion-input [(ngModel)]="vehiclePlate" [disabled]="isPlateDisabled"></ion-input>
+  </ion-item>
+
+  <!-- Contenedor del código QR generado -->
   <div class="qr-container" *ngIf="qrCode">
-    <ion-card  class="qr-card">
+    <ion-card class="qr-card">
       <ion-card-content>
         <h2 class="qr-title">Tu código QR:</h2>
         <div class="qr-content">
@@ -16,8 +36,12 @@
     </ion-card>
   </div>
 
-  <!-- Botón Volver debajo del código QR -->
-  <div class="button-container">
-    <ion-button color="danger" shape="round" (click)="goBack()">Volver</ion-button>
-  </div>
+<div class="button-container">
+  <ion-button *ngIf="!qrCode" color="primary" shape="round" (click)="loadQrCode()">Generar QR</ion-button>
+  <ion-button color="danger" shape="round" (click)="goBack()">Volver</ion-button>
+  
+</div>
+
+
+
 </ion-content>

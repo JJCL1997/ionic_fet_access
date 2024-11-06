@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Html5QrcodeScanner } from 'html5-qrcode';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 

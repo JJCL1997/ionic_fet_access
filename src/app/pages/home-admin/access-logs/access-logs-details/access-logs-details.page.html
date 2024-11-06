@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/access-logs"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Detalles del Registro de Acceso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="logDetails">
+      <ion-card-header>
+          <ion-card-title>{{ logDetails.user_name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <p><strong>Placa del Vehículo:</strong> {{ logDetails.vehicle_plate || 'No disponible' }}</p>
+          <p><strong>Tipo de Vehículo:</strong> {{ logDetails.vehicle_type || 'No disponible' }}</p>
+          <p><strong>Fecha de Acceso:</strong> {{ logDetails.access_time || 'No disponible' }}</p>
+          <!-- Otros detalles que quieras mostrar -->
+      </ion-card-content>
+  </ion-card>
+</ion-content>
