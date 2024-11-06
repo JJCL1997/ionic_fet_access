@@ -11,6 +11,9 @@ import { ApiService } from 'src/app/services/api.service';
 export class AccessLogsPage implements OnInit {
   accessLogs: any[] = [];
   filteredAccessLogs: any[] = [];
+  selectedDate: string = '';
+  selectedRole: string = 'all';
+  searchTerm: string = '';
 
   constructor(
     private router: Router,
@@ -26,30 +29,62 @@ export class AccessLogsPage implements OnInit {
   async loadAccessLogs() {
     try {
       this.accessLogs = await this.apiService.getAccessLogs();
-      console.log('Access logs loaded:', this.accessLogs);
-      this.filteredAccessLogs = [...this.accessLogs];
+      // Mapear el role_id a un nombre de rol para facilitar su visualización
+      this.accessLogs = this.accessLogs.map(log => ({
+        ...log,
+        user_role: this.mapRoleIdToName(log.role_id)
+      }));
+      this.applyFilters();
     } catch (error) {
       const toast = await this.toastController.create({
         message: 'Error al cargar los registros de acceso',
         duration: 2000,
         color: 'danger',
-        position: 'bottom',
       });
       toast.present();
     }
   }
 
-  filterAccessLogs(event: any) {
-    const searchTerm = event.target.value.toLowerCase();
-    this.filteredAccessLogs = this.accessLogs.filter(
-      (log) =>
-        `${log.user_name}`.toLowerCase().includes(searchTerm) ||
-        (log.vehicle_plate &&
-          log.vehicle_plate.toLowerCase().includes(searchTerm))
-    );
+  // Función para mapear role_id a un nombre de rol
+  mapRoleIdToName(roleId: number): string {
+    switch (roleId) {
+      case 1:
+        return 'admin';
+      case 2:
+        return 'student';
+      case 3:
+        return 'visitor';
+      case 4:
+        return 'vigilant';
+      default:
+        return 'No disponible';
+    }
   }
+
+  // Aplica todos los filtros seleccionados (fecha, rol, y búsqueda)
+  applyFilters() {
+    const normalizedSelectedDate = this.selectedDate ? this.selectedDate.split('T')[0] : '';
+    this.filteredAccessLogs = this.accessLogs.filter(log => {
+      // Comparación de fecha asegurándose de que log.access_time y selectedDate tengan el mismo formato
+      const logDate = log.access_time.split(' ')[0];
+      const matchesDate = normalizedSelectedDate ? logDate === normalizedSelectedDate : true;
+      const matchesRole = this.selectedRole === 'all' || log.user_role === this.selectedRole;
+      const matchesSearchTerm = this.searchTerm
+        ? log.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          (log.vehicle_plate &&
+            log.vehicle_plate.toLowerCase().includes(this.searchTerm.toLowerCase()))
+        : true;
+      return matchesDate && matchesRole && matchesSearchTerm;
+    });
+  }
+
+  // Maneja la entrada del campo de búsqueda y actualiza el filtro
+  filterAccessLogs(event: any) {
+    this.searchTerm = event.target.value;
+    this.applyFilters();
+  }
+
   async confirmDelete(accessLogId: number) {
-    console.log('Confirm delete for access log ID:', accessLogId);
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
       message: '¿Estás seguro de que deseas eliminar este registro de acceso?',
@@ -70,20 +105,13 @@ export class AccessLogsPage implements OnInit {
   async deleteAccessLog(accessLogId: number) {
     try {
       await this.apiService.deleteAccessLog(accessLogId);
-
-      // Actualiza la lista de accessLogs y filteredAccessLogs eliminando el registro
-      this.accessLogs = this.accessLogs.filter(
-        (log) => log.log_id !== accessLogId
-      );
-      this.filteredAccessLogs = this.filteredAccessLogs.filter(
-        (log) => log.log_id !== accessLogId
-      );
-
+      // Actualiza la lista de registros eliminando el acceso borrado
+      this.accessLogs = this.accessLogs.filter(log => log.log_id !== accessLogId);
+      this.applyFilters();
       const toast = await this.toastController.create({
         message: 'Registro de acceso eliminado exitosamente',
         duration: 2000,
         color: 'primary',
-        position: 'bottom',
       });
       toast.present();
     } catch (error) {
@@ -91,7 +119,6 @@ export class AccessLogsPage implements OnInit {
         message: 'Error al eliminar el registro de acceso',
         duration: 2000,
         color: 'danger',
-        position: 'bottom',
       });
       toast.present();
     }
@@ -100,9 +127,8 @@ export class AccessLogsPage implements OnInit {
   goBack() {
     this.router.navigate(['/home-admin']);
   }
-  
+
   goToAccessLogDetails(logId: number) {
     this.router.navigate(['/access-logs-details', logId]);
-}
-
+  }
 }

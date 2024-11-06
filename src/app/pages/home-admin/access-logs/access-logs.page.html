@@ -8,21 +8,58 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Filtro de fecha -->
+  <ion-accordion-group>
+    <ion-accordion>
+      <ion-item slot="header">
+        <ion-label>Filtrar por fecha</ion-label>
+        <ion-icon name="calendar-outline" slot="end"></ion-icon>
+      </ion-item>
+      <div slot="content" class="ion-padding">
+        <ion-item>
+          <ion-datetime 
+            display-format="YYYY-MM-DD" 
+            picker-format="YYYY-MM-DD" 
+            placeholder="Selecciona una fecha"
+            [(ngModel)]="selectedDate"
+            (ionChange)="applyFilters()">
+          </ion-datetime>
+        </ion-item>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+  
+
+  <!-- Selector de roles -->
+  <ion-segment [(ngModel)]="selectedRole" (ionChange)="applyFilters()" aria-label="Selector de Roles">
+    <ion-segment-button value="all">
+      <ion-label>Todos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="student">
+      <ion-label>Estudiantes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="visitor">
+      <ion-label>Visitantes</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Barra de búsqueda -->
   <ion-searchbar placeholder="Buscar registros de acceso..." (ionInput)="filterAccessLogs($event)" aria-label="Barra de búsqueda de registros"></ion-searchbar>
 
+  <!-- Lista de registros de acceso -->
   <ion-list *ngIf="filteredAccessLogs.length > 0">
     <ion-item *ngFor="let log of filteredAccessLogs" (click)="goToAccessLogDetails(log.log_id)">
       <ion-label>
-          <h2>{{ log.user_name }}</h2>
-          <p><strong>Placa del Vehículo:</strong> {{ log.vehicle_plate || 'No disponible' }}</p>
+        <h2>{{ log.user_name }}</h2>
+        <p><strong>Rol:</strong> {{ log.user_role || 'No disponible' }}</p>
+        <p><strong>Placa del Vehículo:</strong> {{ log.vehicle_plate || 'No disponible' }}</p>
         <p><strong>Tipo de Vehículo:</strong> {{ log.vehicle_type || 'No disponible' }}</p>
         <p><strong>Fecha de Acceso:</strong> {{ log.access_time || 'No disponible' }}</p>
       </ion-label>
       <ion-buttons slot="end">
         <ion-button (click)="confirmDelete(log.log_id)" color="danger" shape="round" fill="solid">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-      </ion-button>
-      
+        </ion-button>
       </ion-buttons>
     </ion-item>
   </ion-list>

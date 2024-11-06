@@ -15,7 +15,7 @@ export class RegisterUserPage {
     email: '',
     codigo: '',
     telefono: '',
-    role: 'student', // Role inicial para asignar automáticamente el id
+    role: 'student', // Valor predeterminado
     password: '',
     password_confirmation: '',
   };
@@ -42,23 +42,32 @@ export class RegisterUserPage {
       message,
       duration: 3000,
       position: 'bottom',
-      color: color
+      color: color,
     });
     toast.present();
   }
 
+  async handleValidationErrors(errors: any) {
+    for (const key in errors) {
+      if (errors.hasOwnProperty(key)) {
+        const messages = errors[key];
+        for (const message of messages) {
+          await this.showToast(message, 'danger');
+        }
+      }
+    }
+  }
+
   async registerUser() {
     try {
-      // Asignar el role_id según el valor de role
-      this.user.role_id = this.user.role === 'admin' ? 1 : (this.user.role === 'student' ? 2 : 3);
-      delete this.user.role; // Eliminamos el campo 'role' si el backend solo necesita 'role_id'
-
-      // Llamada al servicio para registrar el usuario
+      this.user.role_id = this.mapRoleToId(this.user.role);
+      console.log("Role ID a enviar:", this.user.role_id); // Verificar que se asigna correctamente
+  
+      delete this.user.role;
+  
       await this.apiService.registerUser(this.user);
-      
       this.showToast('Usuario registrado exitosamente', 'success');
-
-      // Limpiar el formulario
+  
       this.user = {
         nombres: '',
         apellidos: '',
@@ -69,10 +78,31 @@ export class RegisterUserPage {
         password: '',
         password_confirmation: '',
       };
-
+  
       this.router.navigate(['/admin-users']);
-    } catch (error) {
-      this.showToast((error as Error).message);
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        await this.handleValidationErrors(error.response.data.errors);
+      } else if (error.message) {
+        await this.showToast(error.message, 'danger');
+      } else {
+        await this.showToast('Error desconocido al registrar el usuario', 'danger');
+      }
+    }
+  }
+  
+
+  // Método para mapear el rol a su correspondiente `role_id`
+  mapRoleToId(role: string): number {
+    switch (role) {
+      case 'admin':
+        return 1;
+      case 'student':
+        return 2;
+      case 'vigilant':
+        return 4;
+      default:
+        return 3;
     }
   }
 

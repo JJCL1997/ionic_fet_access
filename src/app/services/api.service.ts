@@ -64,21 +64,26 @@ export class ApiService {
   }
 
   async registerUser(user: any): Promise<any> {
-    const token = localStorage.getItem('authToken'); // Asegura que el token se obtiene correctamente
+    const token = localStorage.getItem('authToken');
+    console.log("Datos del usuario a registrar:", user); // Asegúrate de que `role_id` esté presente
     try {
       const response = await axios.post(
         `${this.baseUrl}/register`,
         user,
         {
-          headers: { Authorization: `Bearer ${token}` } // Agrega el token al header
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
         }
       );
+      console.log('Registro exitoso:', response.data);
       return response.data;
     } catch (error: any) {
-      console.log(error.response?.data); // Muestra detalles del error si ocurre
+      console.log('Detalles del error:', error.response?.data);
       throw new Error(error.response?.data.message || 'Error desconocido al registrar el usuario');
     }
   }
+  
+  
+  
   
   
 
