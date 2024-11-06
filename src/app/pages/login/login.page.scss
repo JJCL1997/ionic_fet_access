@@ -7,11 +7,11 @@ ion-img {
 }
 
 ion-item.custom-item {
-  --background: #10dc60;
+  --background: #0c9f0f;
   border-radius: 8px;
   margin-bottom: 15px;
   box-shadow: 0px 4px 8px rgba(16, 220, 96, 0.3); /* Sombra suave en verde */
-  border: 1px solid #0cba4d; /* Borde más oscuro para resaltar */
+  border: 1px solid #0c9f0f; /* Borde más oscuro para resaltar */
   padding: 5px;
 }
 
@@ -22,13 +22,16 @@ ion-item.custom-item ion-label {
 ion-button {
   margin-top: 15px;
   border-radius: 8px;
-  border: 2px solid #68ce55;
+  border: 2px solid #0c9f0f;
   box-shadow: 0px 4px 8px rgba(8, 8, 8, 0.4);
   margin-top: 20px;
+  --background: #0c9f0f;
 }
 
 ion-toolbar {
   --min-height: 56px; /* Altura estándar para todos los encabezados */
   --padding-start: 16px;
   --padding-end: 16px;
+  --background: #0c9f0f;
+  color: #000000;
 }

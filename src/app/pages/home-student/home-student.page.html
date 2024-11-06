@@ -1,18 +1,16 @@
 <ion-header>
-  <ion-toolbar color="success">
-    <ion-title>Inicio Admin</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">Cerrar Sesión</ion-button>
-    </ion-buttons>
+  <ion-toolbar >
+    <ion-title>Estudiantes</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="welcome-card">
-    <ion-card color="success">
+    <ion-card >
       <ion-card-header>
         <div class="profile-picture">
-          <img src="assets/img/feo.jpg" alt="Foto de perfil" />
+          <img src="assets/img/student.png" alt="Foto de perfil" />
         </div>
       </ion-card-header>
       <ion-card-content>
@@ -22,6 +20,7 @@
     </ion-card>
   </div>
   <ion-content class="ion-padding">
-    <ion-button expand="full" (click)="goToUserManagement()" color="success">Generar QR</ion-button>
+    <ion-button class="generate-qr" (click)="goToUserManagement()">Generar QR</ion-button>
+    <ion-button (click)="logout()" color="danger">Cerrar Sesión</ion-button>
   </ion-content>
 </ion-content>

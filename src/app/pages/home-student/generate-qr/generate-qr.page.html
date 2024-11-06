@@ -1,15 +1,12 @@
-<ion-header >
-  <ion-toolbar color="success">
+<ion-header [translucent]="true">
+  <ion-toolbar>
     <ion-title>Generar QR</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="goBack()">Volver</ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="qr-container" *ngIf="qrCode">
-    <ion-card color="success" class="qr-card">
+    <ion-card  class="qr-card">
       <ion-card-content>
         <h2 class="qr-title">Tu código QR:</h2>
         <div class="qr-content">
@@ -18,7 +15,9 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-text *ngIf="!qrCode" color="medium" class="ion-text-center">
-    <h3>Cargando código QR...</h3>
-  </ion-text>
+
+  <!-- Botón Volver debajo del código QR -->
+  <div class="button-container">
+    <ion-button color="danger" shape="round" (click)="goBack()">Volver</ion-button>
+  </div>
 </ion-content>
