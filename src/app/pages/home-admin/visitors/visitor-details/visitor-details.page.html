@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
     </ion-buttons>
     <ion-title>Detalles del Visitante</ion-title>
   </ion-toolbar>
@@ -21,4 +20,8 @@
       <p><strong>Fecha de Acceso:</strong> {{ visitor.latest_access_log?.access_time || 'No disponible' }}</p>
     </ion-card-content>
   </ion-card>
+
+  <div class="button-container">
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
 </ion-content>

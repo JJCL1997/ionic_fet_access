@@ -1,8 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
-    </ion-buttons>
     <ion-title>Actualizar Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -35,10 +32,14 @@
     </ion-item>
 
     <div class="button-container">
-      <ion-button expand="block" type="submit" color="primary" [disabled]="!user.nombres || !user.apellidos || !user.email || !user.codigo">
+      <ion-button type="submit" [disabled]="!user.nombres || !user.apellidos || !user.email || !user.codigo">
         <ion-icon name="save-outline" slot="start"></ion-icon>
         Guardar Cambios
       </ion-button>
+    </div>
+
+    <div class="button-group ion-text-center">
+      <ion-button color="danger" (click)="goBack()">Volver</ion-button>
     </div>
 
     <ion-text color="danger" *ngIf="!user.nombres || !user.apellidos || !user.email || !user.codigo" class="warning-text">

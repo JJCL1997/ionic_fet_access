@@ -22,9 +22,12 @@ ion-title {
 }
 
 ion-button {
-  border-radius: 20px;
+  margin-top: 20px;
+  border-radius: 30px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  height: 50px; /* Consistente en altura */
+  width: 80%;
+  display: block;
+  margin: 20px auto;
 }
 
 .action-button {
@@ -38,3 +41,4 @@ ion-button[color="danger"] {
   border-radius: 30px;
   width: 80%; /* Asegura que el ancho sea el mismo */
 }
+

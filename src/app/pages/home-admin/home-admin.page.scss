@@ -20,3 +20,18 @@ ion-content {
     height: 50px; /* Aumenta la altura para que sea un poco más largo */
     width: 100%; /* Asegura el mismo ancho */
   }
+
+  ion-button.action-button {
+    --background: #0c9f0f;
+    height: 50px; /* Aumenta la altura para que sea un poco más largo */
+    width: 100%; /* Asegura el mismo ancho */
+  }
+
+  ion-button {
+    margin-top: 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    display: block;
+    margin: 20px auto;
+  }
