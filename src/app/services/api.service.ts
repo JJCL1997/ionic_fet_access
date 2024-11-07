@@ -223,8 +223,10 @@ async getAccessLogs(): Promise<any[]> {
     const response = await axios.get(`${this.baseUrl}/student/profile`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return response.data; // Asegúrate de retornar siempre los datos actualizados
-  }
+    console.log('Respuesta del perfil:', response.data); // Log para verificar la respuesta
+    return response.data;
+}
+
 
   async updateProfile(formData: FormData): Promise<any> {
     const token = localStorage.getItem('authToken');
@@ -241,7 +243,7 @@ async getAccessLogs(): Promise<any[]> {
     const token = localStorage.getItem('authToken');
     try {
       const response = await axios.post(
-        `${this.baseUrl}/user/update-password`,
+        `${this.baseUrl}/student/update-password`,
         { current_password: currentPassword, new_password: newPassword, new_password_confirmation: confirmPassword },
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -255,6 +257,31 @@ async getAccessLogs(): Promise<any[]> {
       } else {
         throw new Error('Error de red o servidor');
       }
+    }
+  }
+
+  async forgotPassword(email: string): Promise<any> {
+    try {
+      const response = await axios.post(`${this.baseUrl}/forgot-password`, { email });
+      return response.data; // Retorna la respuesta del servidor
+    } catch (error: any) {
+      console.error('Error en forgotPassword:', error.response?.data);
+      throw new Error(error.response?.data.message || 'Error desconocido al enviar el código de verificación');
+    }
+  }
+
+  // Método para restablecer la contraseña
+  async resetPassword(email: string, verificationCode: string, newPassword: string): Promise<any> {
+    try {
+      const response = await axios.post(`${this.baseUrl}/reset-password`, {
+        email,
+        verification_code: verificationCode,
+        new_password: newPassword,
+      });
+      return response.data; // Retorna la respuesta del servidor
+    } catch (error: any) {
+      console.error('Error en resetPassword:', error.response?.data);
+      throw new Error(error.response?.data.message || 'Error desconocido al restablecer la contraseña');
     }
   }
 }

@@ -10,11 +10,12 @@
       <ion-card-header>
         <div class="profile-picture">
           <!-- Foto de perfil dinámica o imagen predeterminada si no está disponible -->
-          <img 
-            [src]="userProfile?.profile_photo || 'assets/img/student.png'" 
-            alt="Foto de perfil" 
-            class="profile-photo" 
-          />
+          <img
+          [src]="userProfile.profile_photo"
+          alt="Foto de perfil"
+          class="profile-photo"
+          *ngIf="userProfile.profile_photo"
+        />
         </div>
       </ion-card-header>
       <ion-card-content>
@@ -28,7 +29,7 @@
   <ion-content class="ion-padding">
     <ion-button class="generate-qr" (click)="goToUserManagement()">Generar QR</ion-button>
     <ion-button class="informacionperfil" (click)="viewInfo()">Información del Perfil</ion-button>
-    <ion-button class="accionesdisponible" (click)="viewOptions()">Acciones Disponibles</ion-button>
+    <!-- <ion-button class="accionesdisponible" (click)="viewOptions()">Acciones Disponibles</ion-button> -->
     <ion-button (click)="logout()" color="danger">Cerrar Sesión</ion-button>
   </ion-content>
 </ion-content>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +15,15 @@ export class LoginPage {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {}
 
   async login() {
     try {
       const response = await this.apiService.login(this.email, this.password);
 
-      const userRole = localStorage.getItem('userRole'); 
+      const userRole = localStorage.getItem('userRole');
 
       switch (userRole) {
         case 'admin':
@@ -40,7 +41,7 @@ export class LoginPage {
         default:
           throw new Error('Rol de usuario no reconocido');
       }
-      
+
     } catch (error) {
       const alert = await this.alertController.create({
         header: 'Error',
@@ -50,4 +51,7 @@ export class LoginPage {
       await alert.present();
     }
   }
+
+
+
 }

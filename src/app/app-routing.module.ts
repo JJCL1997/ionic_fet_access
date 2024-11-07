@@ -40,24 +40,29 @@ const routes: Routes = [
   },
   {
     path: 'access-logs',
-    loadChildren: () => import('./pages/home-admin/access-logs/access-logs.module').then( m => m.AccessLogsPageModule)
+    loadChildren: () => import('./pages/home-admin/access-logs/access-logs.module').then( m => m.AccessLogsPageModule),
+    canActivate: [AuthGuard], data: { role: 'admin'}
+
   },
   {
     path: 'access-logs-details/:id',
-    loadChildren: () => import('./pages/home-admin/access-logs/access-logs-details/access-logs-details.module').then( m => m.AccessLogsDetailsPageModule)
+    loadChildren: () => import('./pages/home-admin/access-logs/access-logs-details/access-logs-details.module').then( m => m.AccessLogsDetailsPageModule),
+    canActivate: [AuthGuard], data: { role: 'admin'}
+
   },
   {
     path: 'qr-visitor',
-    loadChildren: () => import('./pages/home-admin/qr-visitor/qr-visitor.module').then( m => m.QrVisitorPageModule)
-  },
+    loadChildren: () => import('./pages/home-admin/qr-visitor/qr-visitor.module').then( m => m.QrVisitorPageModule),
+    canActivate: [AuthGuard], data: { role: 'vigilant'}
 
+  },
 
   {
     path: 'scan-qr',
-    loadChildren: () => import('./scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
+    loadChildren: () => import('./scan-qr/scan-qr.module').then( m => m.ScanQrPageModule),
+    canActivate: [AuthGuard], data: { role: 'vigilant'}
+
   },
-
-
 
   {
     path: 'generate-qr',
@@ -72,35 +77,28 @@ const routes: Routes = [
 
   {
     path: 'profile-info',
-    loadChildren: () => import('./pages/home-student/profile-info/profile-info.module').then( m => m.ProfileInfoPageModule)
+    loadChildren: () => import('./pages/home-student/profile-info/profile-info.module').then( m => m.ProfileInfoPageModule),
+    canActivate: [AuthGuard], data: { role: 'student'}
   },
   {
     path: 'edit-profile',
-    loadChildren: () => import('./pages/home-student/profile-info/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+    loadChildren: () => import('./pages/home-student/profile-info/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule),
+    canActivate: [AuthGuard], data: { role: 'student'}
+
   },
   {
     path: 'edit-password',
-    loadChildren: () => import('./pages/home-student/profile-info/edit-password/edit-password.module').then( m => m.EditPasswordPageModule)
+    loadChildren: () => import('./pages/home-student/profile-info/edit-password/edit-password.module').then( m => m.EditPasswordPageModule),
+    canActivate: [AuthGuard], data: { role: 'student'}
+
   },
-
-
-
-
-
-
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
-  },
-
-
 
   {
     path: 'home-vigilant',
     loadChildren: () => import('./pages/home-vigilant/home-vigilant.module').then( m => m.HomeVigilantPageModule),
+    canActivate: [AuthGuard], data: { role: 'vigilant'}
+
   },
-
-
   {
     path: 'visitor-registration',
     loadChildren: () => import('./pages/home-admin/qr-visitor/visitor-registration/visitor-registration.module').then( m => m.VisitorRegistrationPageModule)
@@ -108,6 +106,11 @@ const routes: Routes = [
   {
     path: 'welcome-visitor',
     loadChildren: () => import('./pages/home-admin/qr-visitor/welcome-visitor/welcome-visitor.module').then( m => m.WelcomeVisitorPageModule)
+  },
+
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
 
 
@@ -121,6 +124,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'login'
   },
+
 
 
 

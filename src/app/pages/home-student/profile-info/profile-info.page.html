@@ -10,10 +10,10 @@
   <ion-card class="profile-photo-card">
     <ion-card-content class="ion-text-center">
       <div class="profile-photo-container">
-        <img 
-          [src]="userProfile.profile_photo" 
-          alt="Foto de perfil" 
-          class="profile-photo" 
+        <img
+          [src]="userProfile.profile_photo"
+          alt="Foto de perfil"
+          class="profile-photo"
           *ngIf="userProfile.profile_photo"
         />
         <p *ngIf="!userProfile.profile_photo">Foto de perfil no disponible</p>

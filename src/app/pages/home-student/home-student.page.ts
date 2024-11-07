@@ -25,29 +25,36 @@ export class HomeStudentPage implements OnInit {
   async loadUserProfile() {
     try {
       this.userProfile = await this.apiService.getProfileInfo();
+      console.log('Perfil cargado:', this.userProfile); // Verifica la carga del perfil
       this.userName = `${this.userProfile.nombres} ${this.userProfile.apellidos}` || 'Estudiante';
+
+      // Asegúrate de que la URL de la foto esté correctamente formateada
+      if (this.userProfile.profile_photo) {
+        this.userProfile.profile_photo = this.userProfile.profile_photo; // No alterar la URL
+      }
     } catch (error) {
       console.error('Error al cargar el perfil:', error);
     }
   }
 
+
   goToUserManagement() {
-    this.router.navigate(['/generate-qr']); 
+    this.router.navigate(['/generate-qr']);
   }
 
   viewInfo() {
-    this.router.navigate(['/profile-info']); 
+    this.router.navigate(['/profile-info']);
   }
 
   viewOptions() {
-    this.router.navigate(['/options']); 
+    this.router.navigate(['/options']);
   }
 
   async logout() {
     try {
-      await this.apiService.logout(); 
-      localStorage.removeItem('authToken'); 
-      localStorage.removeItem('userRole');  
+      await this.apiService.logout();
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userRole');
 
       const toast = await this.toastController.create({
         message: 'Sesión cerrada exitosamente',

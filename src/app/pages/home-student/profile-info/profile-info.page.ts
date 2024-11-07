@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { NavController } from '@ionic/angular'; 
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile-info',
@@ -14,9 +14,9 @@ export class ProfileInfoPage implements OnInit {
   userName: string = '';
 
   constructor(
-    private apiService: ApiService, 
-    private router: Router, 
-    private userService: UserService, 
+    private apiService: ApiService,
+    private router: Router,
+    private userService: UserService,
     private navCtrl: NavController
   ) {}
 
@@ -33,8 +33,14 @@ export class ProfileInfoPage implements OnInit {
 
   async loadProfile() {
     try {
-      this.userProfile = await this.apiService.getProfileInfo();
+      const profileData = await this.apiService.getProfileInfo();
+      this.userProfile = profileData;
       this.userName = `${this.userProfile.nombres} ${this.userProfile.apellidos}`;
+
+      // Asegúrate de que la URL de la foto esté correctamente formateada
+      if (this.userProfile.profile_photo) {
+        this.userProfile.profile_photo = this.userProfile.profile_photo; // No alterar la URL
+      }
     } catch (error) {
       console.error('Error al cargar el perfil:', error);
     }
@@ -45,10 +51,10 @@ export class ProfileInfoPage implements OnInit {
   }
 
   goToEditPassword() {
-    this.router.navigate(['/edit-password']); // Navega a la página de cambio de contraseña
+    this.router.navigate(['/edit-password']);
   }
 
   goBack() {
-    this.navCtrl.back(); 
+    this.router.navigate(['/home-student']);
   }
 }
