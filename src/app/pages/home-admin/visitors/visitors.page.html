@@ -1,14 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
-    </ion-buttons>
     <ion-title>Visitantes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" scroll-y="true">
-  <!-- Agregar un ion-searchbar para buscar visitantes -->
+  <!-- Barra de búsqueda para buscar visitantes -->
   <ion-searchbar placeholder="Buscar visitantes..." (ionInput)="filterVisitors($event)" aria-label="Barra de búsqueda de visitantes"></ion-searchbar>
 
   <!-- Lista de visitantes -->
@@ -32,4 +29,8 @@
   <ion-text *ngIf="filteredVisitors.length === 0" color="medium" class="ion-text-center">
     <h3>No hay visitantes para mostrar</h3>
   </ion-text>
+
+  <div class="button-container">
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
 </ion-content>

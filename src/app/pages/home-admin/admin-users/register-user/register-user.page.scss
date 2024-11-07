@@ -1,0 +1,47 @@
+ion-content {
+    --background: #ffffff;
+  }
+  
+  ion-toolbar {
+    --min-height: 56px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --background: #0c9f0f;
+    color: #000000;
+  }
+  
+  ion-item {
+    --background: #f8f9fa; /* Fondo gris claro para los campos de entrada */
+    --color: #333333; /* Color oscuro para el texto */
+    border-radius: 8px;
+    margin: 8px 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  ion-label {
+    color: #0c9f0f; /* Verde para las etiquetas */
+    font-weight: bold;
+  }
+  
+  ion-input, input[type="password"] {
+    color: #000000; /* Color oscuro para el texto de entrada */
+    font-size: 16px;
+  }
+  
+  ion-button {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+  }
+  
+  .register-button {
+    --background: #0c9f0f; /* Verde para el botón de registrar */
+  }
+  
+  ion-button[color="danger"] {
+    --background: #ff4d4f;
+    border-radius: 30px;
+    width: 80%; /* Asegura que el ancho sea el mismo */
+  }
+  
