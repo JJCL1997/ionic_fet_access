@@ -31,8 +31,18 @@
 
     <ion-item>
       <ion-label position="floating">Teléfono</ion-label>
-      <ion-input [(ngModel)]="user.telefono" name="telefono" type="tel" aria-label="Teléfono"></ion-input>
+      <ion-input
+        [(ngModel)]="user.telefono"
+        name="telefono"
+        type="text"
+        (keydown)="onlyNumbers($event)"
+        required
+        aria-label="Teléfono">
+      </ion-input>
     </ion-item>
+
+
+
 
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
@@ -52,6 +62,7 @@
         <ion-select-option value="vigilant">Vigilante</ion-select-option>
       </ion-select>
     </ion-item>
+
 
     <ion-button type="submit" expand="full" color="primary" [disabled]="!isFormValid()">Registrar</ion-button>
   </form>

@@ -52,6 +52,11 @@ const routes: Routes = [
   },
 
 
+  {
+    path: 'scan-qr',
+    loadChildren: () => import('./scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
+  },
+
 
 
   {
@@ -81,23 +86,18 @@ const routes: Routes = [
 
 
 
-  
+
 
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
-  
+
 
 
   {
     path: 'home-vigilant',
     loadChildren: () => import('./pages/home-vigilant/home-vigilant.module').then( m => m.HomeVigilantPageModule),
-  },
-  {
-    path: 'scan-qr',
-    loadChildren: () => import('./pages/scan-qr/scan-qr.module').then( m => m.ScanQrPageModule),
-    canActivate: [AuthGuard], data: { role: 'vigilant'}
   },
 
 
@@ -121,20 +121,21 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'login'
   },
- 
-  
-  
-
- 
-
-  
-
- 
 
 
-  
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

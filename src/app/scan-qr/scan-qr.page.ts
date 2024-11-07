@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { QrService } from 'src/app/services/qr.service';
+import { ToastController, NavController } from '@ionic/angular';
 import { Html5QrcodeScanner } from 'html5-qrcode';
-import { ApiService } from 'src/app/services/api.service';
-import { ToastController ,NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scan-qr',
@@ -11,13 +10,14 @@ import { Router } from '@angular/router';
 })
 export class ScanQrPage implements OnInit, OnDestroy {
   private html5QrCodeScanner: Html5QrcodeScanner | null = null;
-  userInfo: any = null; // Almacena la información del usuario después del escaneo
+  userInfo: any = null;
+  private scannedSuccessfully: boolean = false;
+  private lastToken: string | null = null; // Para almacenar el último token escaneado
 
   constructor(
-    private apiService: ApiService,
+    private qrService: QrService,
     private toastController: ToastController,
-    private router: Router,
-    private navCtrl : NavController
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -53,42 +53,52 @@ export class ScanQrPage implements OnInit, OnDestroy {
   }
 
   async onScanSuccess(decodedText: string) {
+    if (this.scannedSuccessfully) {
+      console.warn("Ya se ha escaneado un QR con éxito, ignorando este escaneo.");
+      return; // No hacer nada si ya se ha escaneado
+    }
+
+    let qrData;
     try {
       console.log("Texto escaneado:", decodedText);
+      qrData = JSON.parse(decodedText);
+    } catch (parseError) {
+      console.error("El QR escaneado no tiene un formato JSON válido:", parseError);
+      await this.showToast("El código QR no es válido.");
+      return;
+    }
 
-      let qrData;
-      try {
-        qrData = JSON.parse(decodedText);
-      } catch (parseError) {
-        console.error("El QR escaneado no tiene un formato JSON válido:", parseError);
-        await this.showToast("El código QR no es válido.");
-        return;
-      }
+    // Comprobar si el token ya fue utilizado
+    if (this.lastToken === qrData.token) {
+      console.warn("Este token ya ha sido utilizado.");
+      await this.showToast('Este código QR ya ha sido escaneado.');
+      return; // Evita que se use el mismo token
+    }
 
-      if (!qrData.token || !qrData.email) {
-        console.warn("El QR escaneado no contiene los datos requeridos.");
-        await this.showToast("El código QR escaneado no contiene datos válidos.");
-        return;
-      }
+    try {
+      const validationResponse = await this.qrService.validateQrCode(
+        qrData.token,
+        qrData.email,
+        qrData.vehiculo,
+        qrData.placa
+      );
 
-      const validationResponse = await this.apiService.validateQrCode(qrData.token, qrData.email);
-
-      if (validationResponse.message === 'Usuario autorizado.') {
+      if (validationResponse.message.includes('autorizado')) {
         console.log("Código QR válido. Usuario autorizado.");
-        
-        // Almacenar la información del usuario para mostrarla en la página
         this.userInfo = {
-          nombre: validationResponse.user.nombres + " " + validationResponse.user.apellidos,
-          codigo: validationResponse.user.codigo,
-          email: validationResponse.user.email,
-          vehicleType: validationResponse.vehicleType,
-          vehiclePlate: validationResponse.vehiclePlate,
+          nombre: qrData.nombre,
+          codigo: qrData.codigo,
+          email: qrData.email,
+          vehicleType: qrData.vehiculo,
+          vehiclePlate: qrData.placa,
         };
-
+        this.scannedSuccessfully = true; // Marcar como escaneado con éxito
+        this.lastToken = qrData.token; // Almacenar el token actual
         await this.showToast('Usuario autorizado.', 'success');
+        this.stopQrScanner(); // Detener el escáner
       } else {
         console.warn("Código QR no válido o expirado.");
-        this.userInfo = null; // Limpia la información si el QR es inválido
+        this.userInfo = null;
         await this.showToast('Código QR no válido o expirado.');
       }
     } catch (error) {
@@ -105,7 +115,8 @@ export class ScanQrPage implements OnInit, OnDestroy {
     });
     toast.present();
   }
-  goBack(){
-    this.navCtrl.back()
+
+  goBack() {
+    this.navCtrl.back();
   }
 }

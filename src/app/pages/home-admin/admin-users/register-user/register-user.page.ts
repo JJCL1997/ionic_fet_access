@@ -20,6 +20,7 @@ export class RegisterUserPage {
     password_confirmation: '',
   };
 
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -36,6 +37,16 @@ export class RegisterUserPage {
       this.user.password === this.user.password_confirmation
     );
   }
+
+  onlyNumbers(event: KeyboardEvent) {
+    const key = event.key;
+    // Permite solo teclas de números y ciertas teclas como "Backspace", "Tab", "Arrow keys"
+    if (!/^[0-9]$/.test(key) && key !== 'Backspace' && key !== 'Tab' && !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+      event.preventDefault(); // Previene la entrada de cualquier carácter no numérico
+    }
+  }
+
+
 
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastController.create({
@@ -62,12 +73,13 @@ export class RegisterUserPage {
     try {
       this.user.role_id = this.mapRoleToId(this.user.role);
       console.log("Role ID a enviar:", this.user.role_id); // Verificar que se asigna correctamente
-  
+
       delete this.user.role;
-  
+
       await this.apiService.registerUser(this.user);
       this.showToast('Usuario registrado exitosamente', 'success');
-  
+
+      // Reiniciar el formulario
       this.user = {
         nombres: '',
         apellidos: '',
@@ -78,7 +90,7 @@ export class RegisterUserPage {
         password: '',
         password_confirmation: '',
       };
-  
+
       this.router.navigate(['/admin-users']);
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -90,7 +102,6 @@ export class RegisterUserPage {
       }
     }
   }
-  
 
   // Método para mapear el rol a su correspondiente `role_id`
   mapRoleToId(role: string): number {

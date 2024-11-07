@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import axios, { AxiosError } from 'axios';
-
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root',
@@ -81,13 +80,6 @@ export class ApiService {
       throw new Error(error.response?.data.message || 'Error desconocido al registrar el usuario');
     }
   }
-  
-  
-  
-  
-  
-
-
 
   async getQrCode(vehicleType: string, vehiclePlate: string): Promise<string> {
     const token = localStorage.getItem('authToken');
@@ -100,8 +92,32 @@ export class ApiService {
     );
     return response.data.qr_code;
   }
-  
-  
+
+  async validateQrCode(token: string, email: string, vehicleType?: string, vehiclePlate?: string): Promise<any> {
+    const authToken = localStorage.getItem('authToken'); // Obtener el token de autenticación
+
+    try {
+        const response = await axios.post(
+            `${this.baseUrl}/validate-qr`,
+            {
+                token,
+                email,
+                vehicle_type: vehicleType,
+                vehicle_plate: vehiclePlate
+            },
+            { headers: { Authorization: `Bearer ${authToken}` } }
+        );
+        return response.data; // Devuelve la respuesta del servidor
+    } catch (error: any) {
+        console.error("Error al validar el código QR:", error.response ? error.response.data : error);
+        throw new Error(error.response?.data.message || 'Error desconocido al validar el código QR');
+    }
+}
+
+
+
+
+
   async logout(): Promise<void> {
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -111,153 +127,134 @@ export class ApiService {
       localStorage.removeItem('authToken');
     }
   }
-  async validateQrCode(token: string, email: string): Promise<any> {
-    const authToken = localStorage.getItem('authToken');
-    const response = await axios.post(
-      `${this.baseUrl}/validate-qr`, // Usa backticks aquí
-      { token, email },
-      { headers: { Authorization: `Bearer ${authToken}` } } // Usa backticks aquí también
-    );
+
+  async getVisitors(): Promise<any[]> {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('No se encontró un token de autenticación');
+
+    const response = await axios.get(`${this.baseUrl}/visitors`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+
+  async deleteVisitor(visitorId: number): Promise<void> {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('No se encontró un token de autenticación');
+
+    await axios.delete(`${this.baseUrl}/visitors/${visitorId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  async getVisitorById(visitorId: string): Promise<any> {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('No se encontró un token de autenticación');
+
+    const response = await axios.get(`${this.baseUrl}/visitors/${visitorId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+
+  async getAccessLogDetails(accessLogId: number): Promise<any> {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('No se encontró un token de autenticación');
+
+    const response = await axios.get(`${this.baseUrl}/access-logs/${accessLogId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
 }
 
-async getVisitors(): Promise<any[]> {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('No se encontró un token de autenticación');
-
-  const response = await axios.get(`${this.baseUrl}/visitors`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-}
-
-// Eliminar un visitante
-async deleteVisitor(visitorId: number): Promise<void> {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('No se encontró un token de autenticación');
-
-  await axios.delete(`${this.baseUrl}/visitors/${visitorId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-}
-async getVisitorById(visitorId: string): Promise<any> {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('No se encontró un token de autenticación');
-
-  const response = await axios.get(`${this.baseUrl}/visitors/${visitorId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-}
-
-// Obtener todos los registros de acceso
 async getAccessLogs(): Promise<any[]> {
   const token = localStorage.getItem('authToken');
   if (!token) throw new Error('No se encontró un token de autenticación');
 
   const response = await axios.get(`${this.baseUrl}/access-logs`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-}
-
-// Obtener un registro de acceso específico por ID
-async getAccessLogById(accessLogId: number): Promise<any> {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('No se encontró un token de autenticación');
-
-  const response = await axios.get(`${this.baseUrl}/access-logs/${accessLogId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-}
-
-async deleteAccessLog(accessLogId: number): Promise<void> {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('No se encontró un token de autenticación');
-  
-  console.log(`Deleting access log with ID: ${accessLogId} at ${this.baseUrl}/access-logs/${accessLogId}`);
-
-  await axios.delete(`${this.baseUrl}/access-logs/${accessLogId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-  });
-}
-async getAccessLogDetails(logId: number): Promise<any> {
-  const token = localStorage.getItem('authToken');
-  if (!token) throw new Error('No se encontró un token de autenticación');
-
-  const response = await axios.get(`${this.baseUrl}/access-logs/${logId}`, {
       headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
 }
 
-async getVisitorQrCode(): Promise<any> {
-  const response = await axios.get(`${this.baseUrl}/generate-visitor-qr`);
-  return response.data;
-}
 
-async registerVisitor(visitorData: any): Promise<any> {
-  try {
+
+  async getAccessLogById(accessLogId: number): Promise<any> {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('No se encontró un token de autenticación');
+
+    const response = await axios.get(`${this.baseUrl}/access-logs/${accessLogId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
+
+  async deleteAccessLog(accessLogId: number): Promise<void> {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('No se encontró un token de autenticación');
+
+    console.log(`Deleting access log with ID: ${accessLogId} at ${this.baseUrl}/access-logs/${accessLogId}`);
+
+    await axios.delete(`${this.baseUrl}/access-logs/${accessLogId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  async getVisitorQrCode(): Promise<any> {
+    const response = await axios.get(`${this.baseUrl}/generate-visitor-qr`);
+    return response.data;
+  }
+
+  async registerVisitor(visitorData: any): Promise<any> {
+    try {
       const response = await axios.post(`${this.baseUrl}/visitor/register`, visitorData);
       return response.data;
-  } catch (error: any) {
+    } catch (error: any) {
       if (error.response && error.response.status === 422) {
-          throw error.response.data; // Lanza la respuesta completa
+        throw error.response.data; // Lanza la respuesta completa
       } else {
-          throw new Error('Error al procesar la solicitud');
+        throw new Error('Error al procesar la solicitud');
       }
-  }
-}
-
-async getProfileInfo(): Promise<any> {
-  const token = localStorage.getItem('authToken');
-  const response = await axios.get(`${this.baseUrl}/student/profile`, {
-      headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data; // Asegúrate de retornar siempre los datos actualizados
-}
-
-
-async updateProfile(formData: FormData): Promise<any> {
-  const token = localStorage.getItem('authToken');
-  const response = await axios.post(`${this.baseUrl}/student/update-profile`, formData, {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-      },
-  });
-  return response.data;
-}
-
-async updatePassword(currentPassword: string, newPassword: string, confirmPassword: string): Promise<any> {
-  const token = localStorage.getItem('authToken');
-  try {
-    const response = await axios.post(
-      `${this.baseUrl}/user/update-password`,
-      { current_password: currentPassword, new_password: newPassword, new_password_confirmation: confirmPassword },
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    );
-    return response.data;
-  } catch (error: any) {
-    if (error.response) {
-      console.error(error.response.data); // Muestra detalles del error si ocurre
-      throw new Error(error.response.data.message || 'Error desconocido al actualizar la contraseña');
-    } else {
-      throw new Error('Error de red o servidor');
     }
   }
-}
 
+  async getProfileInfo(): Promise<any> {
+    const token = localStorage.getItem('authToken');
+    const response = await axios.get(`${this.baseUrl}/student/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data; // Asegúrate de retornar siempre los datos actualizados
+  }
 
+  async updateProfile(formData: FormData): Promise<any> {
+    const token = localStorage.getItem('authToken');
+    const response = await axios.post(`${this.baseUrl}/student/update-profile`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
+      },
+    });
+    return response.data;
+  }
 
-
-
-
-
-
-
-
+  async updatePassword(currentPassword: string, newPassword: string, confirmPassword: string): Promise<any> {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.post(
+        `${this.baseUrl}/user/update-password`,
+        { current_password: currentPassword, new_password: newPassword, new_password_confirmation: confirmPassword },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        console.error(error.response.data); // Muestra detalles del error si ocurre
+        throw new Error(error.response.data.message || 'Error desconocido al actualizar la contraseña');
+      } else {
+        throw new Error('Error de red o servidor');
+      }
+    }
+  }
 }

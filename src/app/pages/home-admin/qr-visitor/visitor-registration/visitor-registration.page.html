@@ -10,37 +10,46 @@
       <ion-label position="floating">Nombres</ion-label>
       <ion-input type="text" [(ngModel)]="visitor.nombres" name="nombres" required></ion-input>
     </ion-item>
-    
+
     <ion-item>
       <ion-label position="floating">Apellidos</ion-label>
       <ion-input type="text" [(ngModel)]="visitor.apellidos" name="apellidos" required></ion-input>
     </ion-item>
-    
+
     <ion-item>
       <ion-label position="floating">Identificación</ion-label>
       <ion-input type="text" [(ngModel)]="visitor.identificacion" name="identificacion" required></ion-input>
     </ion-item>
-    
+
     <ion-item>
       <ion-label position="floating">Teléfono</ion-label>
-      <ion-input type="tel" [(ngModel)]="visitor.telefono" name="telefono"></ion-input>
+      <ion-input type="text"
+                 [(ngModel)]="visitor.telefono"
+                 name="telefono"
+                 (keydown)="onlyNumbers($event)"
+                 required>
+      </ion-input>
     </ion-item>
-    
+
     <ion-item>
       <ion-label position="floating">Motivo de Visita</ion-label>
       <ion-textarea [(ngModel)]="visitor.motivo_visita" name="motivo_visita"></ion-textarea>
     </ion-item>
-    
+
     <ion-item>
       <ion-label position="floating">Tipo de Vehículo</ion-label>
-      <ion-input type="text" [(ngModel)]="visitor.vehicle_type" name="vehicle_type"></ion-input>
+      <ion-select [(ngModel)]="visitor.vehicle_type" name="vehicle_type" required>
+        <ion-select-option value="carro">Carro</ion-select-option>
+        <ion-select-option value="moto">Moto</ion-select-option>
+        <ion-select-option value="no_registra">No Registra</ion-select-option>
+      </ion-select>
     </ion-item>
-    
+
     <ion-item>
       <ion-label position="floating">Placa del Vehículo</ion-label>
       <ion-input type="text" [(ngModel)]="visitor.vehicle_plate" name="vehicle_plate"></ion-input>
     </ion-item>
-    
+
     <ion-button expand="full" type="submit" color="primary">Registrar</ion-button>
   </form>
 </ion-content>

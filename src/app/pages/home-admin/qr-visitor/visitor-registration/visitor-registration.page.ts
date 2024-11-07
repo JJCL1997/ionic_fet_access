@@ -25,6 +25,15 @@ export class VisitorRegistrationPage {
     private router: Router
   ) {}
 
+  onlyNumbers(event: KeyboardEvent) {
+    const key = event.key;
+    // Permite solo teclas de números y ciertas teclas como "Backspace", "Tab", "Arrow keys"
+    if (!/^[0-9]$/.test(key) && key !== 'Backspace' && key !== 'Tab' && !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+      event.preventDefault(); // Previene la entrada de cualquier carácter no numérico
+    }
+  }
+
+
   async registerVisitor() {
     try {
       await this.apiService.registerVisitor(this.visitor);

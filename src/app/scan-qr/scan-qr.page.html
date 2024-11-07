@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Escanear QR</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div id="qr-reader" style="width: 100%;"></div>
+
+  <ion-card *ngIf="userInfo" class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>Información del Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Nombre:</strong> {{ userInfo.nombre }}</p>
+      <p><strong>Código:</strong> {{ userInfo.codigo }}</p>
+      <p><strong>Email:</strong> {{ userInfo.email }}</p>
+      <p><strong>Vehículo:</strong> {{ userInfo.vehicleType || 'No registrado' }}</p>
+      <p><strong>Placa:</strong> {{ userInfo.vehiclePlate || 'No registrada' }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
