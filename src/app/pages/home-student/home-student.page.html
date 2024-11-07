@@ -26,9 +26,9 @@
 
   <!-- Botones de acción -->
   <ion-content class="ion-padding">
-    <ion-button (click)="goToUserManagement()">Generar QR</ion-button>
-    <ion-button (click)="viewInfo()" color="primary">Información del Perfil</ion-button>
-    <ion-button (click)="viewOptions()" color="secondary">Acciones Disponibles</ion-button>
+    <ion-button class="generate-qr" (click)="goToUserManagement()">Generar QR</ion-button>
+    <ion-button class="informacionperfil" (click)="viewInfo()">Información del Perfil</ion-button>
+    <ion-button class="accionesdisponible" (click)="viewOptions()">Acciones Disponibles</ion-button>
     <ion-button (click)="logout()" color="danger">Cerrar Sesión</ion-button>
   </ion-content>
 </ion-content>

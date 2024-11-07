@@ -1,0 +1,22 @@
+ion-content {
+    --background: #ffffff;
+  }
+  
+  ion-toolbar {
+    --min-height: 56px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --background: #0c9f0f;
+    color: #000000;
+  }
+  ion-button[color="danger"] {
+    --background: #ff4d4f;
+    border-radius: 30px;
+    width: 80%; /* Asegura que el ancho sea el mismo */
+  }
+
+  .action-button {
+    --background: #0c9f0f;
+    height: 50px; /* Aumenta la altura para que sea un poco más largo */
+    width: 100%; /* Asegura el mismo ancho */
+  }

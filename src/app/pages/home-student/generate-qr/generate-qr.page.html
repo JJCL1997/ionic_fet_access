@@ -24,6 +24,11 @@
     <ion-input [(ngModel)]="vehiclePlate" [disabled]="isPlateDisabled"></ion-input>
   </ion-item>
 
+  <div class="button-container">
+    <ion-button class="generar-qr" *ngIf="!qrCode" (click)="loadQrCode()">Generar QR</ion-button>
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
+
   <!-- Contenedor del código QR generado -->
   <div class="qr-container" *ngIf="qrCode">
     <ion-card class="qr-card">
@@ -36,11 +41,7 @@
     </ion-card>
   </div>
 
-<div class="button-container">
-  <ion-button *ngIf="!qrCode" color="primary" shape="round" (click)="loadQrCode()">Generar QR</ion-button>
-  <ion-button color="danger" shape="round" (click)="goBack()">Volver</ion-button>
-  
-</div>
+
 
 
 

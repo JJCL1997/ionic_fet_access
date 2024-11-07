@@ -2,14 +2,15 @@
   <ion-toolbar>
     <ion-title>Gestión Usuarios</ion-title>
     <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
+      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="button-container">
-    <ion-button expand="block" color="primary" (click)="viewUsers()">Ver Usuarios</ion-button>
-    <ion-button expand="block" color="success" (click)="registerUser()">Registrar Usuario</ion-button>
+<ion-content class="ion-padding">
+  <div class="button-group ion-text-center">
+    <ion-button class="action-button" (click)="viewUsers()">Ver Usuarios</ion-button>
+    <ion-button class="action-button" (click)="registerUser()">Registrar Usuario</ion-button>
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
   </div>
 </ion-content>  

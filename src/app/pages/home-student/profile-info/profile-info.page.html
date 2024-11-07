@@ -1,11 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Información del Perfil</ion-title>
+    <ion-title>Información De Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +21,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="userProfile">
+  <ion-card *ngIf="userProfile" class="info-card">
     <ion-card-content>
       <p><strong>Nombres:</strong> {{ userProfile.nombres }}</p>
       <p><strong>Apellidos:</strong> {{ userProfile.apellidos }}</p>
@@ -38,7 +33,8 @@
 
   <!-- Botones de acción para editar perfil y contraseña -->
   <div class="button-group ion-text-center">
-    <ion-button (click)="goToEditProfile()" color="primary" expand="block">Editar info perfil</ion-button>
-    <ion-button (click)="goToEditPassword()" color="secondary" expand="block">Editar contraseña</ion-button>
+    <ion-button (click)="goToEditProfile()" class="action-button">Editar información de perfil</ion-button>
+    <ion-button (click)="goToEditPassword()" class="action-button">Cambiar contraseña</ion-button>
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
   </div>
 </ion-content>

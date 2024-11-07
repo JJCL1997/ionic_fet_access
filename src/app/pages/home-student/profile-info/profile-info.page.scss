@@ -1,25 +1,61 @@
+ion-content {
+  --background: #ffffff;
+}
+
 .profile-photo-card {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 20px auto; /* Centra la tarjeta y agrega margen inferior */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    --ion-card-background: transparent; /* Fondo transparente para resaltar la imagen */
-    box-shadow: none; /* Sin sombra para que se vea limpia */
-  }
-  
-  .profile-photo-container {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid #3880ff; /* Borde para resaltar la foto */
-  }
-  
-  .profile-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --ion-card-background: transparent;
+  box-shadow: none;
+}
+
+.profile-photo-container {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #0c9f0f; /* Verde consistente con el diseño */
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-card {
+  --background: #f0f4f7;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 2px 4px rgb(12, 159, 15);
+  margin-bottom: 20px;
+  color: #333333; /* Color de texto más oscuro */
+}
+
+.info-card p {
+  color: #333333; /* Asegura que el texto dentro de los párrafos sea más oscuro */
+}
+
+.action-button {
+  --background: #0c9f0f;
+  height: 50px; /* Aumenta la altura para que sea un poco más largo */
+  width: 100%; /* Asegura el mismo ancho */
+}
+
+ion-button[color="danger"] {
+  --background: #ff4d4f;
+  border-radius: 30px;
+  width: 80%; /* Asegura que el ancho sea el mismo */
+}
+
+ion-toolbar {
+  --min-height: 56px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --background: #0c9f0f;
+  color: #000000;
+}

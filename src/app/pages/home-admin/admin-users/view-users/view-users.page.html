@@ -1,8 +1,5 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
-    </ion-buttons>
     <ion-title>Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -49,4 +46,9 @@
   <ion-text *ngIf="filteredUsers.length === 0" color="medium" class="ion-text-center">
     <h3>No hay usuarios para mostrar</h3>
   </ion-text>
+
+  <div class="button-container">
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
+  
 </ion-content>

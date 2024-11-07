@@ -49,9 +49,22 @@ ion-button.generate-qr {
   width: 100%; /* Asegura el mismo ancho */
 }
 
+ion-button.informacionperfil {
+  --background: #0c9f0f;
+  height: 50px; /* Aumenta la altura para que sea un poco más largo */
+  width: 100%; /* Asegura el mismo ancho */
+}
+
+ion-button.accionesdisponible {
+  --background: #0c9f0f;
+  height: 50px; /* Aumenta la altura para que sea un poco más largo */
+  width: 100%; /* Asegura el mismo ancho */
+}
+
 ion-toolbar {
   --min-height: 56px;
   --padding-start: 16px;
   --padding-end: 16px;
   --background: #0c9f0f;
+  color: #000000;
 }

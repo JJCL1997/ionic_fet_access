@@ -16,10 +16,9 @@ ion-content {
   margin: auto;
   border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  --background: #0c9f0f; /* Cambia el color de fondo de la tarjeta */
+  --background: #0c9f0f;
   color: #000000;
 }
-
 
 .qr-title {
   font-size: 1.2em;
@@ -43,7 +42,8 @@ ion-content {
 
 .button-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
 
@@ -51,10 +51,37 @@ ion-button {
   width: 100%;
   border-radius: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  display: block;
-  margin: 20px auto;
-  margin-top: 20px;
+  margin: 10px 0;
+}
 
+ion-button.generar-qr {
+  --background: #0c9f0f;
+  height: 50px;
+}
+
+ion-button[color="danger"] {
+  --background: #ff4d4f;
+  border-radius: 30px;
+  width: 80%; /* Asegura que el ancho sea el mismo */
+}
+
+/* Estilos para los campos de entrada */
+ion-item {
+  --background: #f0f4f7; /* Fondo gris claro */
+  --color: #0c9f0f; /* Color verde para texto */
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+ion-label {
+  color: #0c9f0f; /* Color verde para el texto del label */
+}
+
+ion-select,
+ion-input {
+  color: #000000; /* Color del texto en negro */
+  padding: 5px;
 }
 
 ion-toolbar {
