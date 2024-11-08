@@ -1,18 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Escanear QR</ion-title>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div id="qr-reader" style="width: 100%;"></div>
+  <div id="qr-reader" class="qr-reader"></div>
 
-  <ion-card *ngIf="userInfo" class="ion-margin-top">
+  <ion-card *ngIf="userInfo" class="user-info-card">
     <ion-card-header>
       <ion-card-title>Información del Usuario</ion-card-title>
     </ion-card-header>
@@ -24,4 +19,9 @@
       <p><strong>Placa:</strong> {{ userInfo.vehiclePlate || 'No registrada' }}</p>
     </ion-card-content>
   </ion-card>
+
+  <div class="button-group ion-text-center">
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
+
 </ion-content>

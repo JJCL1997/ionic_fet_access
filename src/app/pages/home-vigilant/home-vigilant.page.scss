@@ -1,0 +1,50 @@
+ion-content {
+    --background: #ffffff; /* Fondo blanco para el contenido */
+  }
+  
+  ion-toolbar {
+    --min-height: 56px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --background: #0c9f0f;
+    color: #000000;
+  }
+  
+  ion-title {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .welcome-card {
+    --background: #f0f4f7; /* Fondo gris claro para la tarjeta */
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-align: center;
+  }
+  
+  ion-card-title {
+    color: #333333; /* Color oscuro para el título */
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  ion-button {
+    margin-top: 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    display: block;
+    margin: 20px auto;
+  }
+  
+  .action-button {
+    --background: #0c9f0f;
+    height: 50px; /* Aumenta la altura para que sea un poco más largo */
+    width: 100%; /* Asegura el mismo ancho */
+  }
+
+  ion-button[color="danger"] {
+    --background: #ff4d4f;
+    border-radius: 30px;
+    width: 80%; /* Asegura que el ancho sea el mismo */
+  }
