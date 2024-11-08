@@ -37,7 +37,6 @@ export class ProfileInfoPage implements OnInit {
       this.userProfile = profileData;
       this.userName = `${this.userProfile.nombres} ${this.userProfile.apellidos}`;
 
-      // Asegúrate de que la URL de la foto esté correctamente formateada
       if (this.userProfile.profile_photo) {
         this.userProfile.profile_photo = this.userProfile.profile_photo; // No alterar la URL
       }

@@ -38,8 +38,6 @@ export class VisitorRegistrationPage {
     try {
       await this.apiService.registerVisitor(this.visitor);
       this.showToast('Visitante registrado exitosamente', 'primary');
-
-      // Redirige a la página de bienvenida
       this.router.navigate(['/welcome-visitor']);
     } catch (error: any) {
       if (error.errors && error.errors.identificacion) {

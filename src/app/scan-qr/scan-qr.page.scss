@@ -1,0 +1,77 @@
+ion-content {
+  --background: #ffffff;
+}
+
+ion-toolbar {
+  --min-height: 56px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --background: #0c9f0f;
+  color: #000000;
+}
+
+.qr-reader {
+  width: 100%;
+  height: 400px;
+  display: contents;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+  border: 1px solid #0c9f0f;
+  border-radius: 12px;
+}
+
+ion-card {
+  max-width: 400px;
+  width: 80%;
+  text-align: center;
+  color: #000000;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  --background: #0c9f0f;
+  margin: 20px auto;
+}
+
+.user-info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+ion-card-title {
+  color: #ffffff;
+}
+
+ion-button {
+  margin-top: 20px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+ion-button[color="danger"] {
+  --background: #ff4d4f;
+}
+
+.content-background {
+  padding: 16px;
+}
+
+ion-footer {
+  --background: #0c9f0f;
+  color: #ffffff;
+}
+
+.footer-title {
+  text-align: center;
+  font-size: 14px;
+  color: aliceblue;
+}
+.centered-button {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  border-radius: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}

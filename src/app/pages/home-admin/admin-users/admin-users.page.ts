@@ -7,19 +7,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-users.page.scss'],
 })
 export class AdminUsersPage implements OnInit {
+
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    console.log('AdminUsersPage cargado');
+  }
 
   viewUsers() {
     this.router.navigate(['/view-users']);
   }
+
   deleteUser() {
     this.router.navigate(['/delete-user']);
   }
+
   registerUser() {
     this.router.navigate(['/register-user']);
   }
-  goBack(){
-    this.router.navigate(['/home-admin']); 
+
+  goBack() {
+    this.router.navigate(['/home-admin']);
   }
-  ngOnInit() {}
 }

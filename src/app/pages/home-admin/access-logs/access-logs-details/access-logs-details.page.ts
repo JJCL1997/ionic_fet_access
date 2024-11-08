@@ -18,15 +18,14 @@ export class AccessLogsDetailsPage implements OnInit {
     async ngOnInit() {
       const logIdParam = this.route.snapshot.paramMap.get('id');
       const logId = logIdParam ? +logIdParam : null;
-  
+
       if (logId !== null) {
           await this.loadLogDetails(logId);
       } else {
           console.error("No se encontró el ID del log");
-          // Maneja el caso donde el ID no está disponible
       }
   }
-  
+
 
     async loadLogDetails(logId: number) {
         this.logDetails = await this.apiService.getAccessLogDetails(logId);

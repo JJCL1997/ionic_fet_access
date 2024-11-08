@@ -65,7 +65,6 @@ export class EditProfilePage implements OnInit {
 
     try {
       await this.apiService.updateProfile(formData);
-      // Actualiza el perfil en el servicio
       this.userService.updateUserProfile({ ...this.userProfile, telefono: this.newPhone, profile_photo: this.selectedPhoto ? URL.createObjectURL(this.selectedPhoto) : this.userProfile.profile_photo });
 
       const toast = await this.toastController.create({
@@ -86,6 +85,6 @@ export class EditProfilePage implements OnInit {
     }
   }
   goBack() {
-    this.navCtrl.back(); 
+    this.navCtrl.back();
   }
 }

@@ -13,21 +13,21 @@ export class HomeAdminPage implements OnInit {
   constructor(
     private router: Router,
     private toastController: ToastController,
-    private apiService: ApiService 
+    private apiService: ApiService
   ) {}
 
   goToUserManagement() {
-    this.router.navigate(['/admin-users']); 
+    this.router.navigate(['/admin-users']);
   }
 
   goToVisitorManagement() {
-    this.router.navigate(['/visitors']); 
+    this.router.navigate(['/visitors']);
   }
 
   goToAccessLogsManagement() {
     this.router.navigate(['/access-logs']);
   }
-  
+
 
   goBack() {
     this.router.navigate(['/access-logs']);
@@ -35,9 +35,9 @@ export class HomeAdminPage implements OnInit {
 
   async logout() {
     try {
-      await this.apiService.logout(); 
-      localStorage.removeItem('authToken'); 
-      localStorage.removeItem('userRole'); 
+      await this.apiService.logout();
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userRole');
 
       const toast = await this.toastController.create({
         message: 'Sesión cerrada exitosamente',
@@ -59,5 +59,7 @@ export class HomeAdminPage implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log()
+  }
 }

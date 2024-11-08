@@ -32,7 +32,7 @@ export class ScanQrPage implements OnInit, OnDestroy {
     if (!this.html5QrCodeScanner) {
       this.html5QrCodeScanner = new Html5QrcodeScanner(
         "qr-reader",
-        { fps: 10, qrbox: { width: 250, height: 250 } },
+        { fps: 1, qrbox: { width: 250, height: 250 } },
         false
       );
     }
@@ -58,6 +58,7 @@ export class ScanQrPage implements OnInit, OnDestroy {
       return; // No hacer nada si ya se ha escaneado
     }
 
+    // Verifica que el texto sea en formato .json
     let qrData;
     try {
       console.log("Texto escaneado:", decodedText);
@@ -75,6 +76,7 @@ export class ScanQrPage implements OnInit, OnDestroy {
       return; // Evita que se use el mismo token
     }
 
+    // uso del servicio
     try {
       const validationResponse = await this.qrService.validateQrCode(
         qrData.token,

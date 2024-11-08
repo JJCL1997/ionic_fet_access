@@ -29,7 +29,6 @@ export class AccessLogsPage implements OnInit {
   async loadAccessLogs() {
     try {
       this.accessLogs = await this.apiService.getAccessLogs();
-      // Mapear el role_id a un nombre de rol para facilitar su visualización
       this.accessLogs = this.accessLogs.map(log => ({
         ...log,
         user_role: this.mapRoleIdToName(log.role_id)
@@ -45,7 +44,6 @@ export class AccessLogsPage implements OnInit {
     }
   }
 
-  // Función para mapear role_id a un nombre de rol
   mapRoleIdToName(roleId: number): string {
     switch (roleId) {
       case 1:
@@ -61,11 +59,9 @@ export class AccessLogsPage implements OnInit {
     }
   }
 
-  // Aplica todos los filtros seleccionados (fecha, rol, y búsqueda)
   applyFilters() {
     const normalizedSelectedDate = this.selectedDate ? this.selectedDate.split('T')[0] : '';
     this.filteredAccessLogs = this.accessLogs.filter(log => {
-      // Comparación de fecha asegurándose de que log.access_time y selectedDate tengan el mismo formato
       const logDate = log.access_time.split(' ')[0];
       const matchesDate = normalizedSelectedDate ? logDate === normalizedSelectedDate : true;
       const matchesRole = this.selectedRole === 'all' || log.user_role === this.selectedRole;
@@ -78,7 +74,6 @@ export class AccessLogsPage implements OnInit {
     });
   }
 
-  // Maneja la entrada del campo de búsqueda y actualiza el filtro
   filterAccessLogs(event: any) {
     this.searchTerm = event.target.value;
     this.applyFilters();
@@ -105,7 +100,6 @@ export class AccessLogsPage implements OnInit {
   async deleteAccessLog(accessLogId: number) {
     try {
       await this.apiService.deleteAccessLog(accessLogId);
-      // Actualiza la lista de registros eliminando el acceso borrado
       this.accessLogs = this.accessLogs.filter(log => log.log_id !== accessLogId);
       this.applyFilters();
       const toast = await this.toastController.create({

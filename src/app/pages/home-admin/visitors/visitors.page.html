@@ -5,10 +5,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" scroll-y="true">
-  <!-- Barra de búsqueda para buscar visitantes -->
   <ion-searchbar placeholder="Buscar visitantes..." (ionInput)="filterVisitors($event)" aria-label="Barra de búsqueda de visitantes"></ion-searchbar>
 
-  <!-- Lista de visitantes -->
   <ion-list *ngIf="filteredVisitors.length > 0">
     <ion-item *ngFor="let visitor of filteredVisitors" lines="full" (click)="viewVisitorDetails(visitor.id)">
       <ion-label>
@@ -25,7 +23,6 @@
     </ion-item>
   </ion-list>
 
-  <!-- Mensaje cuando no hay visitantes -->
   <ion-text *ngIf="filteredVisitors.length === 0" color="medium" class="ion-text-center">
     <h3>No hay visitantes para mostrar</h3>
   </ion-text>

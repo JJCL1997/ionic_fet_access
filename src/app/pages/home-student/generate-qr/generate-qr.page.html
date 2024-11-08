@@ -5,10 +5,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <!-- Mostrar mensaje de error si existe -->
 
 
-  <!-- Selección de tipo de vehículo -->
   <ion-item>
     <ion-label position="floating">Tipo de Vehículo</ion-label>
     <ion-select [(ngModel)]="vehicleType" (ionChange)="onVehicleTypeChange()">
@@ -18,7 +16,6 @@
     </ion-select>
   </ion-item>
 
-  <!-- Campo de entrada para la placa del vehículo, desactivado si el tipo es "No registra" -->
   <ion-item>
     <ion-label position="floating">Placa del Vehículo</ion-label>
     <ion-input [(ngModel)]="vehiclePlate" [disabled]="isPlateDisabled"></ion-input>
@@ -29,7 +26,6 @@
     <ion-button color="danger" (click)="goBack()">Volver</ion-button>
   </div>
 
-  <!-- Contenedor del código QR generado -->
   <div class="qr-container" *ngIf="qrCode">
     <ion-card class="qr-card">
       <ion-card-content>

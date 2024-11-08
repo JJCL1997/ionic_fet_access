@@ -20,12 +20,10 @@
     ) {}
 
     ngOnInit(): void {
-      // Ejemplo de lógica de inicialización
       this.initializeData();
     }
 
     initializeData() {
-      // Lógica para inicializar datos
     }
 
 
@@ -45,13 +43,11 @@
           return;
         }
 
-        // Verifica si el usuario seleccionó "carro" o "moto" pero no ingresó la placa
         if ((this.vehicleType === 'carro' || this.vehicleType === 'moto') && !this.vehiclePlate) {
           await this.showToast('Debes ingresar la placa', 'danger');
           return;
         }
 
-        // Genera el código QR si pasa todas las validaciones
         this.qrCode = await this.apiService.getQrCode(this.vehicleType, plate);
       } catch (error: any) {
         const errorMessage = error.error && error.error.message

@@ -40,13 +40,10 @@ export class RegisterUserPage {
 
   onlyNumbers(event: KeyboardEvent) {
     const key = event.key;
-    // Permite solo teclas de números y ciertas teclas como "Backspace", "Tab", "Arrow keys"
     if (!/^[0-9]$/.test(key) && key !== 'Backspace' && key !== 'Tab' && !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
-      event.preventDefault(); // Previene la entrada de cualquier carácter no numérico
+      event.preventDefault();
     }
   }
-
-
 
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastController.create({
@@ -72,14 +69,13 @@ export class RegisterUserPage {
   async registerUser() {
     try {
       this.user.role_id = this.mapRoleToId(this.user.role);
-      console.log("Role ID a enviar:", this.user.role_id); // Verificar que se asigna correctamente
+      console.log("Role ID a enviar:", this.user.role_id);
 
       delete this.user.role;
 
       await this.apiService.registerUser(this.user);
       this.showToast('Usuario registrado exitosamente', 'success');
 
-      // Reiniciar el formulario
       this.user = {
         nombres: '',
         apellidos: '',
@@ -103,7 +99,6 @@ export class RegisterUserPage {
     }
   }
 
-  // Método para mapear el rol a su correspondiente `role_id`
   mapRoleToId(role: string): number {
     switch (role) {
       case 'admin':

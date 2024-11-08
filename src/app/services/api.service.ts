@@ -24,6 +24,16 @@ export class ApiService {
     return response.data;
   }
 
+  async logout(): Promise<void> {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      await axios.post(`${this.baseUrl}/logout`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      localStorage.removeItem('authToken');
+    }
+  }
+
   getUserName(): string | null {
     return localStorage.getItem('userName');
   }
@@ -31,7 +41,6 @@ export class ApiService {
   async getUsers() {
     const token = localStorage.getItem('authToken');
     if (!token) throw new Error('No se encontró un token de autenticación');
-
     const response = await axios.get(`${this.baseUrl}/users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -64,7 +73,7 @@ export class ApiService {
 
   async registerUser(user: any): Promise<any> {
     const token = localStorage.getItem('authToken');
-    console.log("Datos del usuario a registrar:", user); // Asegúrate de que `role_id` esté presente
+    console.log("Datos del usuario a registrar:", user);
     try {
       const response = await axios.post(
         `${this.baseUrl}/register`,
@@ -87,14 +96,14 @@ export class ApiService {
       `${this.baseUrl}/generate-qr`,
       {
         headers: { Authorization: `Bearer ${token}` },
-        params: { vehicle_type: vehicleType, vehicle_plate: vehiclePlate } // Enviar parámetros en la URL
+        params: { vehicle_type: vehicleType, vehicle_plate: vehiclePlate }
       }
     );
     return response.data.qr_code;
   }
 
   async validateQrCode(token: string, email: string, vehicleType?: string, vehiclePlate?: string): Promise<any> {
-    const authToken = localStorage.getItem('authToken'); // Obtener el token de autenticación
+    const authToken = localStorage.getItem('authToken');
 
     try {
         const response = await axios.post(
@@ -107,26 +116,13 @@ export class ApiService {
             },
             { headers: { Authorization: `Bearer ${authToken}` } }
         );
-        return response.data; // Devuelve la respuesta del servidor
+        return response.data;
     } catch (error: any) {
         console.error("Error al validar el código QR:", error.response ? error.response.data : error);
         throw new Error(error.response?.data.message || 'Error desconocido al validar el código QR');
     }
 }
 
-
-
-
-
-  async logout(): Promise<void> {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      await axios.post(`${this.baseUrl}/logout`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      localStorage.removeItem('authToken');
-    }
-  }
 
   async getVisitors(): Promise<any[]> {
     const token = localStorage.getItem('authToken');
@@ -177,8 +173,6 @@ async getAccessLogs(): Promise<any[]> {
   return response.data;
 }
 
-
-
   async getAccessLogById(accessLogId: number): Promise<any> {
     const token = localStorage.getItem('authToken');
     if (!token) throw new Error('No se encontró un token de autenticación');
@@ -211,21 +205,21 @@ async getAccessLogs(): Promise<any[]> {
       return response.data;
     } catch (error: any) {
       if (error.response && error.response.status === 422) {
-        throw error.response.data; // Lanza la respuesta completa
+        throw error.response.data;
       } else {
         throw new Error('Error al procesar la solicitud');
       }
     }
   }
 
-  async getProfileInfo(): Promise<any> {
-    const token = localStorage.getItem('authToken');
-    const response = await axios.get(`${this.baseUrl}/student/profile`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    console.log('Respuesta del perfil:', response.data); // Log para verificar la respuesta
-    return response.data;
-}
+    async getProfileInfo(): Promise<any> {
+      const token = localStorage.getItem('authToken');
+      const response = await axios.get(`${this.baseUrl}/student/profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log('Respuesta del perfil:', response.data);
+      return response.data;
+  }
 
 
   async updateProfile(formData: FormData): Promise<any> {
@@ -252,7 +246,7 @@ async getAccessLogs(): Promise<any[]> {
       return response.data;
     } catch (error: any) {
       if (error.response) {
-        console.error(error.response.data); // Muestra detalles del error si ocurre
+        console.error(error.response.data);
         throw new Error(error.response.data.message || 'Error desconocido al actualizar la contraseña');
       } else {
         throw new Error('Error de red o servidor');
@@ -263,14 +257,13 @@ async getAccessLogs(): Promise<any[]> {
   async forgotPassword(email: string): Promise<any> {
     try {
       const response = await axios.post(`${this.baseUrl}/forgot-password`, { email });
-      return response.data; // Retorna la respuesta del servidor
+      return response.data;
     } catch (error: any) {
       console.error('Error en forgotPassword:', error.response?.data);
       throw new Error(error.response?.data.message || 'Error desconocido al enviar el código de verificación');
     }
   }
 
-  // Método para restablecer la contraseña
   async resetPassword(email: string, verificationCode: string, newPassword: string): Promise<any> {
     try {
       const response = await axios.post(`${this.baseUrl}/reset-password`, {
@@ -278,7 +271,7 @@ async getAccessLogs(): Promise<any[]> {
         verification_code: verificationCode,
         new_password: newPassword,
       });
-      return response.data; // Retorna la respuesta del servidor
+      return response.data;
     } catch (error: any) {
       console.error('Error en resetPassword:', error.response?.data);
       throw new Error(error.response?.data.message || 'Error desconocido al restablecer la contraseña');

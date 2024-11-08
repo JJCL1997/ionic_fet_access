@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Filtro de fecha -->
   <ion-accordion-group>
     <ion-accordion>
       <ion-item slot="header">
@@ -17,9 +16,9 @@
       </ion-item>
       <div slot="content" class="ion-padding">
         <ion-item>
-          <ion-datetime 
-            display-format="YYYY-MM-DD" 
-            picker-format="YYYY-MM-DD" 
+          <ion-datetime
+            display-format="YYYY-MM-DD"
+            picker-format="YYYY-MM-DD"
             placeholder="Selecciona una fecha"
             [(ngModel)]="selectedDate"
             (ionChange)="applyFilters()">
@@ -28,9 +27,8 @@
       </div>
     </ion-accordion>
   </ion-accordion-group>
-  
 
-  <!-- Selector de roles -->
+
   <ion-segment [(ngModel)]="selectedRole" (ionChange)="applyFilters()" aria-label="Selector de Roles">
     <ion-segment-button value="all">
       <ion-label>Todos</ion-label>
@@ -43,10 +41,8 @@
     </ion-segment-button>
   </ion-segment>
 
-  <!-- Barra de búsqueda -->
   <ion-searchbar placeholder="Buscar registros de acceso..." (ionInput)="filterAccessLogs($event)" aria-label="Barra de búsqueda de registros"></ion-searchbar>
 
-  <!-- Lista de registros de acceso -->
   <ion-list *ngIf="filteredAccessLogs.length > 0">
     <ion-item *ngFor="let log of filteredAccessLogs" (click)="goToAccessLogDetails(log.log_id)">
       <ion-label>
