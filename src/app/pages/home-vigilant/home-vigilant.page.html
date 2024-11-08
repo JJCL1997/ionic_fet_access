@@ -1,23 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Bienvenido, {{ vigilanteName }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="content-background">
-  <div class="welcome-card">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Bienvenido, {{ vigilanteName }}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  </div>
-
-  <ion-content class="ion-padding">
-    <ion-button class="informacionperfil" routerLink="/scan-qr">Escanear Código QR</ion-button>
-    <ion-button class="generate-qr" (click)="goToQrVisitor()">QR visitante</ion-button>
-    <ion-button color="danger" (click)="logout()">Cerrar Sesión</ion-button>
-  </ion-content>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Bienvenido, {{ vigilanteName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" routerLink="/scan-qr">Escanear Código QR</ion-button>
+      <ion-button expand="block" (click)="goToQrVisitor()">QR para generar visitante</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <ion-footer>

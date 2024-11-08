@@ -1,23 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
-    </ion-buttons>
-    <ion-title>Escanea este código QR para que te puedas registrar como visitante</ion-title>
+    <ion-title>Registrarse como visitante</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card *ngIf="qrCodeImage">
-      <ion-card-header>
-          <ion-card-title>Escanea este código para registrarte</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-          <img [src]="qrCodeImage" alt="Código QR para registro de visitante" />
-      </ion-card-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card *ngIf="qrCodeImage" class="qr-card">
+    <ion-card-header>
+      <ion-card-title>Escanea este código para registrarte como visitante</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="qrCodeImage" alt="Código QR para registro de visitante" class="qr-image" />
+    </ion-card-content>
   </ion-card>
 
-  <ion-text *ngIf="!qrCodeImage" color="medium" class="ion-text-center">
-      <h3>Generando código QR...</h3>
+  <ion-text *ngIf="!qrCodeImage" color="medium" class="ion-text-center loading-text">
+    <h3>Generando código QR...</h3>
   </ion-text>
+
+  <div class="button-group ion-text-center">
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
+
 </ion-content>

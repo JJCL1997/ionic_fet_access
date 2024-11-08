@@ -1,5 +1,6 @@
 ion-content {
   --background: #ffffff;
+  padding: 16px;
 }
 
 ion-toolbar {
@@ -10,15 +11,20 @@ ion-toolbar {
   color: #000000;
 }
 
+ion-title {
+  text-align: center;
+  font-weight: bold;
+}
+
 .qr-reader {
   width: 100%;
   height: 400px;
-  display: contents;
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  background-color: #f0f0f0;
-  border: 1px solid #0c9f0f;
+  margin: 20px auto;
+  background-color: #f8f9fa;
+  border: 2px dashed #0c9f0f;
   border-radius: 12px;
 }
 
@@ -37,25 +43,34 @@ ion-card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  --background: #f0f4f7;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
 
 ion-card-title {
-  color: #ffffff;
+  color: #333333;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+ion-card-content p {
+  color: #666666;
+  margin-bottom: 8px;
 }
 
 ion-button {
   margin-top: 20px;
   border-radius: 30px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  width: 80%;
+  display: block;
+  margin: 20px auto;
 }
 
 ion-button[color="danger"] {
   --background: #ff4d4f;
-}
-
-.content-background {
-  padding: 16px;
 }
 
 ion-footer {
@@ -68,6 +83,7 @@ ion-footer {
   font-size: 14px;
   color: aliceblue;
 }
+
 .centered-button {
   display: block;
   margin: 0 auto;

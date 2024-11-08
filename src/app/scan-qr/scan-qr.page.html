@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="content-background">
+<ion-content [fullscreen]="true" class="ion-padding content-background">
   <div id="qr-reader" class="qr-reader"></div>
 
   <ion-card *ngIf="userInfo" class="ion-margin-top user-info-card">
@@ -20,13 +20,11 @@
     </ion-card-content>
   </ion-card>
 
-
-  <ion-content class="ion-padding">
-    <ion-button color="danger" (click)="goBack()" class="centered-button">Volver</ion-button>
-  </ion-content>
-
+  <!-- Botón Volver -->
+  <div class="button-group ion-text-center centered-button">
+    <ion-button color="danger" (click)="goBack()">Volver</ion-button>
+  </div>
 </ion-content>
-
 
 <ion-footer>
   <ion-toolbar>
